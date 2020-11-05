@@ -4,18 +4,35 @@
 >
     <xsl:output indent="yes" method="xml" omit-xml-declaration="no" version="1.0" encoding="UTF-8" />
     <xsl:strip-space elements="*" />
-    <xsl:variable name="OptZrd">MARSP</xsl:variable>
-    <xsl:variable name="OptDoc">MARMP</xsl:variable>
-    <xsl:variable name="OptimaNazwalimit">50</xsl:variable>
-    <xsl:variable name="FixedKod">35-205</xsl:variable>
-    <xsl:variable name="FixedMiasto">Rzeszów</xsl:variable>
-    
-    <xsl:variable name="ucase" select="'ABCDEFGHIJKLMNOPQRSTUVWXYZACELNOSZZACELNOSZZ_'">	</xsl:variable>
-    <xsl:variable name="lcase" select="'abcdefghijklmnopqrstuvwxyząćęłńóśżźĄĆĘŁŃÓŚŻŹ '">	</xsl:variable>
-    
+  <xsl:param name="pOptZrd"/>
+  <xsl:param name="pOptDoc"/>
+  <xsl:param name="pFixedKod"/>
+  <xsl:param name="pFixedMiasto"/>
+  <xsl:param name="pNIPclean"/>
 
-    
-    <xsl:template match="DocumentElement">
+  <xsl:variable name="OptimaNazwalimit">50</xsl:variable>
+  <xsl:variable name="OptZrd">
+    <xsl:value-of select="$pOptZrd"/>
+  </xsl:variable>
+    <xsl:variable name="OptDoc">
+      <xsl:value-of select="$pOptDoc"/>
+    </xsl:variable>
+
+    <xsl:variable name="FixedKod">
+      <xsl:value-of select="$pFixedKod"/>
+    </xsl:variable>
+    <xsl:variable name="FixedMiasto">
+      <xsl:value-of select="$pFixedMiasto"/>
+    </xsl:variable>
+  <xsl:variable name="numb" select="'0123456789'"/>
+  <xsl:variable name="nipn" select="'0123456789-'"/>
+  <xsl:variable name="ucase" select="'ABCDEFGHIJKLMNOPQRSTUVWXYZACELNOSZZACELNOSZZ_ILGSCJDBBGNOWMKAYOPEIKAEKTUG'"/>
+  <xsl:variable name="lcase" select="'abcdefghijklmnopqrstuvwxyząćęłńóśżźĄĆĘŁŃÓŚŻŹ илГшчйДбБгновМкауOреікАектуг'"/>
+<!--  Микола_Глушко Даша_ГречишніковаАйбек_Бектурганов -->
+
+
+
+  <xsl:template match="DocumentElement">
         <xsl:text disable-output-escaping="yes">&lt;ROOT xmlns=&quot;http://www.comarch.pl/cdn/optima/offline&quot;&gt;</xsl:text> 
         <xsl:element name="DEFINICJE_DOKUMENTOW">
             <xsl:element name="WERSJA"><xsl:text>2.00</xsl:text></xsl:element>
@@ -23,25 +40,28 @@
             <xsl:element name="BAZA_DOC_ID"><xsl:value-of select="$OptDoc"/></xsl:element> 
         </xsl:element>
         <xsl:element name="KONTRAHENCI">
-            <xsl:element name="WERSJA"><xsl:text>2.00</xsl:text></xsl:element>
-            <xsl:element name="BAZA_ZRD_ID"><xsl:value-of select="$OptZrd"/></xsl:element>
-            <xsl:element name="BAZA_DOC_ID"><xsl:value-of select="$OptDoc"/></xsl:element> 
         <xsl:call-template name="ParseDataKontah" />
         </xsl:element>
         <xsl:element name="REJESTRY_SPRZEDAZY_VAT">
-            <xsl:element name="WERSJA"><xsl:text>2.00</xsl:text></xsl:element>
-            <xsl:element name="BAZA_ZRD_ID"><xsl:value-of select="$OptZrd"/></xsl:element>
-            <xsl:element name="BAZA_DOC_ID"><xsl:value-of select="$OptDoc"/></xsl:element> 
         <xsl:call-template name="ParseDataSprzedazy" />
         </xsl:element>
 
-        <xsl:text>&lt;/ROOT&gt;</xsl:text>
+        <xsl:text disable-output-escaping="yes">&lt;/ROOT&gt;</xsl:text>
     </xsl:template>
     
     <xsl:template name="ParseDataSprzedazy" >
-        <xsl:element name="REJESTR_SPRZEDAZY_VAT">
-            <xsl:for-each select="Bolt/Nazwa_Firmy_Kierowca">
-                <xsl:element name="ID_ZRODLA">A0D739EE-2807-CD5B-533C-C61A74CB22C0</xsl:element>
+      <xsl:element name="WERSJA">
+        <xsl:text>2.00</xsl:text>
+      </xsl:element>
+      <xsl:element name="BAZA_ZRD_ID">
+        <xsl:value-of select="$OptZrd"/>
+      </xsl:element>
+      <xsl:element name="BAZA_DOC_ID">
+        <xsl:value-of select="$OptDoc"/>
+      </xsl:element>
+      <xsl:for-each select="Bolt/Nazwa_Firmy_Kierowca">
+              <xsl:element name="REJESTR_SPRZEDAZY_VAT">
+              <!--           <xsl:element name="ID_ZRODLA">A0D739EE-2807-CD5B-533C-C61A74CB22C0</xsl:element>  -->
                 <xsl:element name="MODUL">Handel</xsl:element>
                 <xsl:element name="TYP">Rejestr sprzedazy</xsl:element>
                 <xsl:element name="REJESTR">SPRZEDAŻ</xsl:element>
@@ -76,7 +96,12 @@ dane podmiotu-->
                 <xsl:element name="MIASTO"><xsl:value-of select="$FixedMiasto"/></xsl:element>
                 <xsl:element name="KOD_POCZTOWY"><xsl:value-of select="$FixedKod"/></xsl:element>
                 <xsl:element name="NIP">
+                  <xsl:if test="$pNIPclean!='TRUE'">
                     <xsl:value-of select="normalize-space(ancestor-or-self::node()/NIP_odbiorcy)"/>
+                  </xsl:if>
+                  <xsl:if test="$pNIPclean='TRUE'">
+                    <xsl:value-of select="translate(normalize-space(ancestor-or-self::node()/NIP_odbiorcy),$nipn,$numb)"/>
+                  </xsl:if>
                 </xsl:element>
                 <xsl:element name="REGON">
                     <xsl:value-of select="normalize-space(ancestor-or-self::node()/Numer_REGON)"/>
@@ -126,16 +151,25 @@ dane podmiotu-->
                         <xsl:element name="WALUTA_DOK">PLN</xsl:element>
                     </xsl:element>
                 </xsl:element>
-                    
-                    
+
+              </xsl:element>
             </xsl:for-each>
-        </xsl:element>
-    </xsl:template>
+
+          </xsl:template>
     
     <xsl:template name="ParseDataKontah" >
-        <xsl:element name="KONTRAHENT">
-            <xsl:for-each select="Bolt/Nazwa_Firmy_Kierowca">
-                <xsl:element name="ID_ZRODLA">A0D739EE-2807-CD5B-533C-C61A74CB22C0</xsl:element>
+      <xsl:element name="WERSJA">
+        <xsl:text>2.00</xsl:text>
+      </xsl:element>
+      <xsl:element name="BAZA_ZRD_ID">
+        <xsl:value-of select="$OptZrd"/>
+      </xsl:element>
+      <xsl:element name="BAZA_DOC_ID">
+        <xsl:value-of select="$OptDoc"/>
+      </xsl:element>
+      <xsl:for-each select="Bolt/Nazwa_Firmy_Kierowca">
+              <xsl:element name="KONTRAHENT">
+              <!--    <xsl:element name="ID_ZRODLA">A0D739EE-2807-CD5B-533C-C61A74CB22C0</xsl:element> -->
                 <xsl:element name="AKRONIM"><xsl:value-of select="translate(normalize-space(ancestor-or-self::node()/Odbiorca),$lcase,$ucase)"/></xsl:element>
                 <xsl:element name="RODZAJ">dostawca odbiorca</xsl:element>
                 <xsl:element name="FINALNY">
@@ -168,7 +202,12 @@ dane podmiotu-->
                         <xsl:element name="MIASTO"><xsl:value-of select="$FixedMiasto"/></xsl:element>
                         <xsl:element name="KOD_POCZTOWY"><xsl:value-of select="$FixedKod"/></xsl:element>
                         <xsl:element name="NIP">
+                          <xsl:if test="$pNIPclean!='TRUE'">
                             <xsl:value-of select="normalize-space(ancestor-or-self::node()/NIP_odbiorcy)"/>
+                          </xsl:if>
+                          <xsl:if test="$pNIPclean='TRUE'">
+                            <xsl:value-of select="translate(normalize-space(ancestor-or-self::node()/NIP_odbiorcy),$nipn,$numb)"/>
+                          </xsl:if>
                         </xsl:element>
                         <xsl:element name="REGON">
                             <xsl:value-of select="normalize-space(ancestor-or-self::node()/Numer_REGON)"/>
@@ -176,8 +215,9 @@ dane podmiotu-->
                     </xsl:element>
                 </xsl:element>
                 <xsl:element name="GRUPY"/>
+              </xsl:element>
             </xsl:for-each>
-    </xsl:element>
+    
     </xsl:template>
     
 </xsl:stylesheet>

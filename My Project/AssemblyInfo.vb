@@ -8,17 +8,17 @@ Imports System.Runtime.InteropServices
 
 ' Sprawdź wartości atrybutów zestawu
 
-<Assembly: AssemblyTitle("BOLT2OPTIMA")>
+<Assembly: AssemblyTitle("Bolt2Optima")>
 <Assembly: AssemblyDescription("")>
 <Assembly: AssemblyCompany("")>
-<Assembly: AssemblyProduct("BOLT2OPTIMA")>
+<Assembly: AssemblyProduct("Bolt2Optima")>
 <Assembly: AssemblyCopyright("Copyright ©  2020")>
 <Assembly: AssemblyTrademark("")>
 
 <Assembly: ComVisible(False)>
 
 'Następujący identyfikator GUID jest identyfikatorem elementu typelib w przypadku udostępnienia tego projektu w modelu COM
-<Assembly: Guid("723749e5-fca1-4b56-bb6e-4b62e100e719")>
+<Assembly: Guid("80838892-1ba4-4ab2-a478-2b8f6676995a")>
 
 ' Informacje o wersji zestawu zawierają następujące cztery wartości:
 '
@@ -31,5 +31,5 @@ Imports System.Runtime.InteropServices
 ' przy użyciu symbolu „*”, tak jak pokazano poniżej:
 ' <Assembly: AssemblyVersion("1.0.*")>
 
-<Assembly: AssemblyVersion("2020.1105.67.0")>
-<Assembly: AssemblyFileVersion("2020.1105.67.0")>
+<Assembly: AssemblyVersion("2020.1105.13.0")>
+<Assembly: AssemblyFileVersion("2020.1105.13.0")>
