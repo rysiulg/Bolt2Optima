@@ -96,6 +96,7 @@ Public Class Form1
         ''# write transformation result to disk
         'Dim stream As FileStream = New FileStream(_outputFile + "-Optima.xml", FileMode.Create)
 
+
         Dim writer = New StreamWriter(_outputFile + "-Optima.xml", True, System.Text.Encoding.UTF8)
 
         writer.Write(output)
@@ -125,6 +126,7 @@ Public Class Form1
         filepath = ofd.FileName
         CsvToXml(filepath, "Bolt", ",", filepath + ".xml")
 
+        dim a =MsgBox("OK Zrobione",vbOKOnly)
 
     End Sub
 

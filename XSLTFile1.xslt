@@ -2,7 +2,7 @@
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
     xmlns:msxsl="urn:schemas-microsoft-com:xslt" exclude-result-prefixes="msxsl"
 >
-    <xsl:output indent="yes" method="xml" omit-xml-declaration="no" version="1.0" encoding="UTF-8" xmlns:ROOT="http://www.comarch.pl/cdn/optima/offline" />
+    <xsl:output indent="yes" method="xml" omit-xml-declaration="no" version="1.0" encoding="UTF-8" />
     <xsl:strip-space elements="*" />
     <xsl:variable name="OptZrd">MARSP</xsl:variable>
     <xsl:variable name="OptDoc">MARMP</xsl:variable>
@@ -22,23 +22,20 @@
             <xsl:element name="BAZA_ZRD_ID"><xsl:value-of select="$OptZrd"/></xsl:element>
             <xsl:element name="BAZA_DOC_ID"><xsl:value-of select="$OptDoc"/></xsl:element> 
         </xsl:element>
-        
-        
         <xsl:element name="KONTRAHENCI">
             <xsl:element name="WERSJA"><xsl:text>2.00</xsl:text></xsl:element>
             <xsl:element name="BAZA_ZRD_ID"><xsl:value-of select="$OptZrd"/></xsl:element>
             <xsl:element name="BAZA_DOC_ID"><xsl:value-of select="$OptDoc"/></xsl:element> 
         <xsl:call-template name="ParseDataKontah" />
         </xsl:element>
-        
         <xsl:element name="REJESTRY_SPRZEDAZY_VAT">
             <xsl:element name="WERSJA"><xsl:text>2.00</xsl:text></xsl:element>
             <xsl:element name="BAZA_ZRD_ID"><xsl:value-of select="$OptZrd"/></xsl:element>
             <xsl:element name="BAZA_DOC_ID"><xsl:value-of select="$OptDoc"/></xsl:element> 
         <xsl:call-template name="ParseDataSprzedazy" />
         </xsl:element>
-        
 
+        <xsl:text>&lt;/ROOT&gt;</xsl:text>
     </xsl:template>
     
     <xsl:template name="ParseDataSprzedazy" >
@@ -50,9 +47,9 @@
                 <xsl:element name="REJESTR">SPRZEDAŻ</xsl:element>
 
                 <xsl:element name="DATA_WYSTAWIENIA">
-                    <xsl:value-of select="concat(substring(normalize-space(ancestor-or-self::node()/Data),8,4),'-',substring(normalize-space(ancestor-or-self::node()/Data),5,2),'-',substring(normalize-space(ancestor-or-self::node()/Data),2,2))"/></xsl:element>
-                <xsl:element name="DATA_SPRZEDAZY"><xsl:value-of select="concat(substring(normalize-space(ancestor-or-self::node()/Data_przejazdu),8,4),'-',substring(normalize-space(ancestor-or-self::node()/Data_przejazdu),5,2),'-',substring(normalize-space(ancestor-or-self::node()/Data_przejazdu),2,2))"/></xsl:element>
-                <xsl:element name="TERMIN"><xsl:value-of select="concat(substring(normalize-space(ancestor-or-self::node()/Data_przejazdu),8,4),'-',substring(normalize-space(ancestor-or-self::node()/Data_przejazdu),5,2),'-',substring(normalize-space(ancestor-or-self::node()/Data_przejazdu),2,2))"/></xsl:element>
+                    <xsl:value-of select="concat(substring(normalize-space(ancestor-or-self::node()/Data),7,4),'-',substring(normalize-space(ancestor-or-self::node()/Data),4,2),'-',substring(normalize-space(ancestor-or-self::node()/Data),1,2))"/></xsl:element>
+                <xsl:element name="DATA_SPRZEDAZY"><xsl:value-of select="concat(substring(normalize-space(ancestor-or-self::node()/Data_przejazdu),7,4),'-',substring(normalize-space(ancestor-or-self::node()/Data_przejazdu),4,2),'-',substring(normalize-space(ancestor-or-self::node()/Data_przejazdu),1,2))"/></xsl:element>
+                <xsl:element name="TERMIN"><xsl:value-of select="concat(substring(normalize-space(ancestor-or-self::node()/Data_przejazdu),7,4),'-',substring(normalize-space(ancestor-or-self::node()/Data_przejazdu),4,2),'-',substring(normalize-space(ancestor-or-self::node()/Data_przejazdu),1,2))"/></xsl:element>
                 <xsl:element name="NUMER"><xsl:value-of select="normalize-space(ancestor-or-self::node()/Numer_faktury)"/></xsl:element>
                 
                 <xsl:element name="WEWNETRZNA">Nie</xsl:element>
@@ -116,7 +113,7 @@ dane podmiotu-->
                 </xsl:element>
                 <xsl:element name="PLATNOSCI">
                     <xsl:element name="PLATNOSC">
-                        <xsl:element name="TERMIN_PLAT"><xsl:value-of select="concat(substring(normalize-space(ancestor-or-self::node()/Data),8,4),'-',substring(normalize-space(ancestor-or-self::node()/Data),5,2),'-',substring(normalize-space(ancestor-or-self::node()/Data),2,2))"/></xsl:element>
+                        <xsl:element name="TERMIN_PLAT"><xsl:value-of select="concat(substring(normalize-space(ancestor-or-self::node()/Data),7,4),'-',substring(normalize-space(ancestor-or-self::node()/Data),4,2),'-',substring(normalize-space(ancestor-or-self::node()/Data),1,2))"/></xsl:element>
                     <xsl:element name="FORMA_PLATNOSCI_PLAT">
                         <xsl:if test="normalize-space(ancestor-or-self::node()/Metoda_płatności)!='gotówka'"><xsl:text>przelew</xsl:text></xsl:if>
                         <xsl:if test="normalize-space(ancestor-or-self::node()/Metoda_płatności)='gotówka'"><xsl:text>gotówka</xsl:text></xsl:if>
