@@ -191,9 +191,9 @@ Partial Class Bolt2Optima
         '
         Me.PictureBox1.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.PictureBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center
-        Me.PictureBox1.Image = Global.Bolt2Optim.My.Resources.Resources.marm_pl
+        Me.PictureBox1.Image = Global.Bolt2Optima.My.Resources.Resources.marm_pl
         Me.PictureBox1.ImeMode = System.Windows.Forms.ImeMode.NoControl
-        Me.PictureBox1.InitialImage = Global.Bolt2Optim.My.Resources.Resources.marm_pl
+        Me.PictureBox1.InitialImage = Global.Bolt2Optima.My.Resources.Resources.marm_pl
         Me.PictureBox1.Location = New System.Drawing.Point(473, 12)
         Me.PictureBox1.Margin = New System.Windows.Forms.Padding(2, 3, 2, 3)
         Me.PictureBox1.Name = "PictureBox1"

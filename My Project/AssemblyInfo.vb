@@ -9,10 +9,10 @@ Imports System.Runtime.InteropServices
 ' Sprawdź wartości atrybutów zestawu
 
 <Assembly: AssemblyTitle("Bolt2Optima")>
-<Assembly: AssemblyDescription("")>
-<Assembly: AssemblyCompany("")>
+<Assembly: AssemblyDescription("Konwerter z systemu Bolt do Optima dla Ksiegowości")>
+<Assembly: AssemblyCompany("MARM.pl Sp. z o.o.")>
 <Assembly: AssemblyProduct("Bolt2Optima")>
-<Assembly: AssemblyCopyright("Copyright ©  2020")>
+<Assembly: AssemblyCopyright("Copyright ©  2020 by MARM.pl")>
 <Assembly: AssemblyTrademark("")>
 
 <Assembly: ComVisible(False)>
@@ -31,5 +31,5 @@ Imports System.Runtime.InteropServices
 ' przy użyciu symbolu „*”, tak jak pokazano poniżej:
 ' <Assembly: AssemblyVersion("1.0.*")>
 
-<Assembly: AssemblyVersion("2020.1105.13.0")>
-<Assembly: AssemblyFileVersion("2020.1105.13.0")>
+<Assembly: AssemblyVersion("2020.1105.28.0")>
+<Assembly: AssemblyFileVersion("2020.1105.28.0")>

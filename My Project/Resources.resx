@@ -127,10 +127,4 @@
   <data name="optima_konfiguracja_rozproszona" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\optima-konfiguracja-rozproszona.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="xml2csv" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\xml2csv.xslt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;windows-1250</value>
-  </data>
-  <data name="XSLTFile1" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\XSLTFile1.xslt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
-  </data>
 </root>

@@ -39,7 +39,7 @@ Namespace My.Resources
         Friend ReadOnly Property ResourceManager() As Global.System.Resources.ResourceManager
             Get
                 If Object.ReferenceEquals(resourceMan, Nothing) Then
-                    Dim temp As Global.System.Resources.ResourceManager = New Global.System.Resources.ResourceManager("Bolt2Optim.Resources", GetType(Resources).Assembly)
+                    Dim temp As Global.System.Resources.ResourceManager = New Global.System.Resources.ResourceManager("Bolt2Optima.Resources", GetType(Resources).Assembly)
                     resourceMan = temp
                 End If
                 Return resourceMan
@@ -87,49 +87,6 @@ Namespace My.Resources
             Get
                 Dim obj As Object = ResourceManager.GetObject("optima_konfiguracja_rozproszona", resourceCulture)
                 Return CType(obj,System.Drawing.Bitmap)
-            End Get
-        End Property
-        
-        '''<summary>
-        '''Wyszukuje zlokalizowany ciąg podobny do ciągu &lt;xsl:stylesheet version=&quot;1.0&quot; xmlns:xsl=&quot;http://www.w3.org/1999/XSL/Transform&quot;&gt;
-        '''  &lt;xsl:output method=&quot;text&quot; encoding=&quot;utf-8&quot; /&gt;
-        '''
-        '''  &lt;xsl:param name=&quot;delim&quot; select=&quot;&apos;,&apos;&quot; /&gt;
-        '''  &lt;xsl:param name=&quot;quote&quot; select=&quot;&apos;&amp;quot;&apos;&quot; /&gt;
-        '''  &lt;xsl:param name=&quot;break&quot; select=&quot;&apos;&amp;#xA;&apos;&quot; /&gt;
-        '''&lt;xsl:param name=&quot;quotehex&quot; select=&quot;&apos;&amp;#x22;&apos;&quot; /&gt;  
-        '''
-        '''&lt;!-- change cr+lf to br --&gt;
-        '''&lt;xsl:template name=&quot;breakht&quot;&gt;
-        '''  &lt;xsl:param name=&quot;text&quot; select=&quot;string(.)&quot;/&gt;
-        '''  &lt;xsl:choose&gt;
-        '''    &lt;xsl:when test=&quot;contains($text, &apos;&amp;#xa;&apos;)&quot;&gt;
-        '''      &lt;xsl:value-of select=&quot;nor [obcięto pozostałą część ciągu]&quot;;.
-        '''</summary>
-        Friend ReadOnly Property xml2csv() As String
-            Get
-                Return ResourceManager.GetString("xml2csv", resourceCulture)
-            End Get
-        End Property
-        
-        '''<summary>
-        '''Wyszukuje zlokalizowany ciąg podobny do ciągu &lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
-        '''&lt;xsl:stylesheet version=&quot;1.0&quot; xmlns:xsl=&quot;http://www.w3.org/1999/XSL/Transform&quot;
-        '''    xmlns:msxsl=&quot;urn:schemas-microsoft-com:xslt&quot; exclude-result-prefixes=&quot;msxsl&quot;
-        '''&gt;
-        '''    &lt;xsl:output indent=&quot;yes&quot; method=&quot;xml&quot; omit-xml-declaration=&quot;no&quot; version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; /&gt;
-        '''    &lt;xsl:strip-space elements=&quot;*&quot; /&gt;
-        '''  &lt;xsl:param name=&quot;pOptZrd&quot;/&gt;
-        '''  &lt;xsl:param name=&quot;pOptDoc&quot;/&gt;
-        '''  &lt;xsl:param name=&quot;pFixedKod&quot;/&gt;
-        '''  &lt;xsl:param name=&quot;pFixedMiasto&quot;/&gt;
-        '''  &lt;xsl:param name=&quot;pNIPclean&quot;/&gt;
-        '''
-        ''' [obcięto pozostałą część ciągu]&quot;;.
-        '''</summary>
-        Friend ReadOnly Property XSLTFile1() As String
-            Get
-                Return ResourceManager.GetString("XSLTFile1", resourceCulture)
             End Get
         End Property
     End Module

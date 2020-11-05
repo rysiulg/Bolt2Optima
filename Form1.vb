@@ -144,7 +144,7 @@ Public Class Bolt2Optima
 
         filepath = ofd.FileName
         statusbox.Clear()
-        CsvToXml(filepath, "Bolt", ",", filepath + ".xml", "Bolt2Optim.Bolt2Optima.Resources.XSLTFile1.xslt")
+        CsvToXml(filepath, "Bolt", ",", filepath + ".xml", "Bolt2Optima.XSLTFile1.xslt")
         exitok()
     End Sub
 
@@ -163,7 +163,7 @@ Public Class Bolt2Optima
             If (Debugflag = vbTrue) Then MsgBox(path)
             statusbox.Clear()
             filepath = path
-            CsvToXml(path, "Bolt", ",", path + ".xml", "Bolt2Optim.Bolt2Optima.Resources.XSLTFile1.xslt")
+            CsvToXml(path, "Bolt", ",", path + ".xml", "Bolt2Optima.XSLTFile1.xslt")
         Next
         exitok()
     End Sub

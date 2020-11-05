@@ -6,8 +6,8 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{3581F8F2-D027-41CA-B8A7-DA62966AFDAE}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <StartupObject>Bolt2Optim.My.MyApplication</StartupObject>
-    <RootNamespace>Bolt2Optim</RootNamespace>
+    <StartupObject>Bolt2Optima.My.MyApplication</StartupObject>
+    <RootNamespace>Bolt2Optima</RootNamespace>
     <AssemblyName>Bolt2Optima</AssemblyName>
     <FileAlignment>512</FileAlignment>
     <MyType>WindowsForms</MyType>
@@ -26,11 +26,17 @@
     <MapFileExtensions>false</MapFileExtensions>
     <InstallUrl>https://www.marm.pl/tmp/sw/b2ok/</InstallUrl>
     <UpdateUrl>https://www.marm.pl/tmp/sw/b2ok/</UpdateUrl>
+    <SupportUrl>https://www.marm.pl</SupportUrl>
+    <ErrorReportUrl>https://www.marm.pl</ErrorReportUrl>
+    <ProductName>Bolt2Optima</ProductName>
+    <PublisherName>MARM.pl Sp. z o.o.</PublisherName>
+    <SuiteName>Bolt2Optima -Konwerter z Systemu Bolt dla Optimy dla Ksiegowości</SuiteName>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>b2ok</WebPage>
-    <ApplicationRevision>1</ApplicationRevision>
-    <ApplicationVersion>2020.1105.8.%2a</ApplicationVersion>
+    <ApplicationRevision>4</ApplicationRevision>
+    <ApplicationVersion>2020.1105.26.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
+    <CreateDesktopShortcut>true</CreateDesktopShortcut>
     <PublishWizardCompleted>true</PublishWizardCompleted>
     <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
@@ -145,6 +151,12 @@
       <DependentUpon>Form1.vb</DependentUpon>
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="ChangelogInfo.Designer.vb">
+      <DependentUpon>ChangelogInfo.vb</DependentUpon>
+    </Compile>
+    <Compile Include="ChangelogInfo.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">
       <AutoGen>True</AutoGen>
@@ -198,14 +210,18 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Resources\favicon.ico" />
+    <EmbeddedResource Include="CHANGELOG">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="README.md">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
     <None Include="Resources\idksiegowego.jpg" />
     <None Include="Resources\optima-konfiguracja-rozproszona.jpg" />
     <EmbeddedResource Include="Resources\xml2csv.xslt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </EmbeddedResource>
-    <EmbeddedResource Include="Resources\XSLTFile1.xslt">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </EmbeddedResource>
+    <EmbeddedResource Include="XSLTFile1.xslt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
 </Project>
