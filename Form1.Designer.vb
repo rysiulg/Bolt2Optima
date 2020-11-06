@@ -22,6 +22,7 @@ Partial Class Bolt2Optima
     'Nie należy modyfikować za pomocą edytora kodu.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(Bolt2Optima))
         Me.OpenCSV = New System.Windows.Forms.Button()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.IDSender = New System.Windows.Forms.TextBox()
@@ -185,7 +186,8 @@ Partial Class Bolt2Optima
         Me.statusbox.ReadOnly = True
         Me.statusbox.Size = New System.Drawing.Size(772, 221)
         Me.statusbox.TabIndex = 42
-        Me.statusbox.Text = ""
+        Me.statusbox.Text = "                                                       KLIKNIJ W TO OKNO BY ZOBAC" &
+    "ZYĆ README i/lub CHANGELOG"
         '
         'PictureBox1
         '
@@ -223,6 +225,7 @@ Partial Class Bolt2Optima
         Me.Controls.Add(Me.Label1)
         Me.Controls.Add(Me.IDOptksieg)
         Me.Controls.Add(Me.OpenCSV)
+        Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.MinimumSize = New System.Drawing.Size(770, 200)
         Me.Name = "Bolt2Optima"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen

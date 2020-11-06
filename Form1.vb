@@ -10,7 +10,11 @@ Imports Ionic
 
 Public Class Bolt2Optima
     'Dim ds As New DataSet
-    Dim Debugflag As Boolean = vbFalse
+    Public Debugflag As Boolean = vbFalse
+    Public result As Boolean
+    Public Namespacefile As String = "Bolt2Optima."
+    Public fname As String() = {Namespacefile + "README.md", Namespacefile + "CHANGELOG"}
+
     Dim starttime As Date = Now()
     Dim filepath As String = ""
 
@@ -90,7 +94,7 @@ Public Class Bolt2Optima
             xsltparam.AddParam("pFixedKod", "", Mid(defaultPostCode.Text, 1, 2) + "-" + Mid(defaultPostCode.Text, 4, 3))
             xsltparam.AddParam("pFixedMiasto", "", defaultCity.Text)
             xsltparam.AddParam("pNIPclean", "", cb_usun_minus_nip.Checked.ToString.ToUpper)
-            If (Debugflag = vbTrue) Then Dim a = MsgBox(cb_usun_minus_nip.Checked.ToString.ToUpper + vbCrLf + defaultCity.Text)
+            If (Debugflag = vbTrue) Then result = MsgBox(cb_usun_minus_nip.Checked.ToString.ToUpper + vbCrLf + defaultCity.Text)
             Dim myxml As System.IO.Stream = New System.IO.MemoryStream()
             myxml.Position = 0
             dt.WriteXml(myxml)
@@ -116,7 +120,7 @@ Public Class Bolt2Optima
 
     Private Sub exitok()
         statusbox.AppendText("Upłynęło Czasu: " + (Now().Subtract(starttime).TotalSeconds.ToString("0.0000")).ToString + "s" + vbCrLf)
-        Dim a = MsgBox("OK Zrobione" + vbCrLf + "Upłynęło: " + (Now().Subtract(starttime).TotalSeconds.ToString("0.0000")).ToString + "s", vbOKOnly)
+        result = MsgBox("OK Zrobione" + vbCrLf + "Upłynęło: " + (Now().Subtract(starttime).TotalSeconds.ToString("0.0000")).ToString + "s", vbOKOnly)
         Dim axs() = Split(filepath, "\")
         Dim pathpa As String = ""
         Dim fname As String = ""
@@ -144,7 +148,7 @@ Public Class Bolt2Optima
 
         filepath = ofd.FileName
         statusbox.Clear()
-        CsvToXml(filepath, "Bolt", ",", filepath + ".xml", "Bolt2Optima.XSLTFile1.xslt")
+        CsvToXml(filepath, "Bolt", ",", filepath + ".xml", Namespacefile + "XSLTFile1.xslt")
         exitok()
     End Sub
 
@@ -160,10 +164,10 @@ Public Class Bolt2Optima
     Private Sub Bolt2Optima_DragDrop(sender As Object, e As DragEventArgs) Handles Me.DragDrop
         Dim files() As String = e.Data.GetData(DataFormats.FileDrop)
         For Each path In files
-            If (Debugflag = vbTrue) Then MsgBox(path)
+            If (Debugflag = vbTrue) Then result = MsgBox(path)
             statusbox.Clear()
             filepath = path
-            CsvToXml(path, "Bolt", ",", path + ".xml", "Bolt2Optima.XSLTFile1.xslt")
+            CsvToXml(path, "Bolt", ",", path + ".xml", Namespacefile + "XSLTFile1.xslt")
         Next
         exitok()
     End Sub
@@ -175,10 +179,15 @@ Public Class Bolt2Optima
     End Sub
 
     Private Sub statusbox_Click(sender As Object, e As EventArgs) Handles statusbox.Click
-        OpenFileDialogAll()
+        ChangelogInfo.Hide()
+        ChangelogInfo.Show()
     End Sub
 
     Private Sub Bolt2Optima_Click(sender As Object, e As EventArgs) Handles Me.Click
         OpenFileDialogAll()
+    End Sub
+
+    Private Sub statusbox_TextChanged(sender As Object, e As EventArgs) Handles statusbox.TextChanged
+
     End Sub
 End Class
