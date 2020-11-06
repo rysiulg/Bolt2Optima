@@ -1,0 +1,107 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<asmv1:assembly xsi:schemaLocation="urn:schemas-microsoft-com:asm.v1 assembly.adaptive.xsd" manifestVersion="1.0" xmlns:asmv1="urn:schemas-microsoft-com:asm.v1" xmlns="urn:schemas-microsoft-com:asm.v2" xmlns:asmv2="urn:schemas-microsoft-com:asm.v2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:co.v1="urn:schemas-microsoft-com:clickonce.v1" xmlns:asmv3="urn:schemas-microsoft-com:asm.v3" xmlns:dsig="http://www.w3.org/2000/09/xmldsig#" xmlns:co.v2="urn:schemas-microsoft-com:clickonce.v2">
+  <asmv1:assemblyIdentity name="Bolt2Optima.exe" version="2020.1105.56.5" publicKeyToken="6f06b952c6b3523f" language="neutral" processorArchitecture="msil" type="win32" />
+  <description asmv2:iconFile="Resources\favicon.ico" xmlns="urn:schemas-microsoft-com:asm.v1" />
+  <application />
+  <entryPoint>
+    <assemblyIdentity name="Bolt2Optima" version="2020.1106.58.4" language="neutral" processorArchitecture="msil" />
+    <commandLine file="Bolt2Optima.exe" parameters="" />
+  </entryPoint>
+  <trustInfo>
+    <security>
+      <applicationRequestMinimum>
+        <PermissionSet Unrestricted="true" ID="Custom" SameSite="site" />
+        <defaultAssemblyRequest permissionSetReference="Custom" />
+      </applicationRequestMinimum>
+      <requestedPrivileges xmlns="urn:schemas-microsoft-com:asm.v3">
+        <!-- Opcje manifestu Kontroli konta użytkownika
+             Jeśli chcesz zmienić poziom Kontroli konta użytkownika systemu Windows, zastąp 
+             węzeł requestedExecutionLevel jednym z następujących.
+
+        <requestedExecutionLevel  level="asInvoker" uiAccess="false" />
+        <requestedExecutionLevel  level="requireAdministrator" uiAccess="false" />
+        <requestedExecutionLevel  level="highestAvailable" uiAccess="false" />
+
+            Określenie elementu requestedExecutionLevel spowoduje wyłączenie wirtualizacji plików i rejestru. 
+            Usuń ten element, jeśli aplikacja wymaga wirtualizacji w celu zachowania
+            zgodności z poprzednimi wersjami.
+        -->
+        <requestedExecutionLevel level="asInvoker" uiAccess="false" />
+      </requestedPrivileges>
+    </security>
+  </trustInfo>
+  <dependency>
+    <dependentOS>
+      <osVersionInfo>
+        <os majorVersion="5" minorVersion="1" buildNumber="2600" servicePackMajor="0" />
+      </osVersionInfo>
+    </dependentOS>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="preRequisite" allowDelayedBinding="true">
+      <assemblyIdentity name="Microsoft.Windows.CommonLanguageRuntime" version="4.0.30319.0" />
+    </dependentAssembly>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Bolt2Optima.exe" size="596336">
+      <assemblyIdentity name="Bolt2Optima" version="2020.1106.58.4" language="neutral" processorArchitecture="msil" />
+      <hash>
+        <dsig:Transforms>
+          <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+        </dsig:Transforms>
+        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
+        <dsig:DigestValue>+zl6rrPFUGFCLC5I7JgQQfVMfog=</dsig:DigestValue>
+      </hash>
+    </dependentAssembly>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="pl\Bolt2Optima.resources.dll" size="55808">
+      <assemblyIdentity name="Bolt2Optima.resources" version="2020.1106.58.4" language="pl" processorArchitecture="msil" />
+      <hash>
+        <dsig:Transforms>
+          <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+        </dsig:Transforms>
+        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
+        <dsig:DigestValue>feDLsiIYPi0XuBDbaNAJvm90m5o=</dsig:DigestValue>
+      </hash>
+    </dependentAssembly>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="DotNetZip.dll" size="458752">
+      <assemblyIdentity name="DotNetZip" version="1.13.8.0" publicKeyToken="6583C7C814667745" language="neutral" processorArchitecture="msil" />
+      <hash>
+        <dsig:Transforms>
+          <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+        </dsig:Transforms>
+        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
+        <dsig:DigestValue>G7CKl5t5h7x3NqjPpHeTg8sOz6Y=</dsig:DigestValue>
+      </hash>
+    </dependentAssembly>
+  </dependency>
+  <file name="Resources\favicon.ico" size="1150">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
+      <dsig:DigestValue>b4m02tTxzftl1BXHBf/pQrpYbYM=</dsig:DigestValue>
+    </hash>
+  </file>
+  <compatibility xmlns="urn:schemas-microsoft-com:compatibility.v1">
+    <application>
+      <!-- Lista wersji systemu Windows, na których ta aplikacja została przetestowana
+           i dla których została zaprojektowana. Odkomentuj odpowiednie elementy, a system Windows
+           automatycznie wybierze najbardziej zgodne środowisko. -->
+      <!-- Windows Vista -->
+      <!--<supportedOS Id="{e2011457-1546-43c5-a5fe-008deee3d3f0}" />-->
+      <!-- Windows 7 -->
+      <!--<supportedOS Id="{35138b9a-5d96-4fbd-8e2d-a2440225f93a}" />-->
+      <!-- Windows 8 -->
+      <!--<supportedOS Id="{4a2f28e3-53b9-4441-ba9c-d69d4a4a6e38}" />-->
+      <!-- Windows 8.1 -->
+      <!--<supportedOS Id="{1f676c76-80e1-4239-95bb-83d0f6d0da78}" />-->
+      <!-- Windows 10 -->
+      <!--<supportedOS Id="{8e0f7a12-bfb3-4fe8-b9a5-48fd50a15a9a}" />-->
+    </application>
+  </compatibility>
+<publisherIdentity name="CN=RGW\user" issuerKeyHash="722f284def10fd6304ebb2ddc17f5e30267d5f07" /><Signature Id="StrongNameSignature" xmlns="http://www.w3.org/2000/09/xmldsig#"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#" /><SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha1" /><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature" /><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#" /></Transforms><DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" /><DigestValue>WXsZEhUOAv61LSz011K6CkHLvjI=</DigestValue></Reference></SignedInfo><SignatureValue>SYOJXSzSmaDnwTlsyMekofS1IVOYs+LHyiJeFWhecNnJCsJtsJvy+LTggNVUTHsb+SzLIRzc4AiCofSepU14BIiR6bgMTKL+8CLVPlpCN3VRh9HQKyjtjeMQLn9Z9qHnJt1mxQsLkCHwdRmiHwLxVrUMP2Ju1NgblHOByz0K4UA=</SignatureValue><KeyInfo Id="StrongNameKeyInfo"><KeyValue><RSAKeyValue><Modulus>sOSFpaEiwWqUMI7dr4gzLiw1KpLvAezkmYUEYgH5aCbVa5j5vdyNnZsSTTksttebog6q9UMk1KSLOHd/pdrrK6coCpqvJOge6cCqIm3d5LRNtftpq4HH0C3n30nI4JaT9PT1NEnx5WXDhvQTS5LmY51qzeZzy5gwT0bQvJA5DoE=</Modulus><Exponent>AQAB</Exponent></RSAKeyValue></KeyValue><msrel:RelData xmlns:msrel="http://schemas.microsoft.com/windows/rel/2005/reldata"><r:license xmlns:r="urn:mpeg:mpeg21:2003:01-REL-R-NS" xmlns:as="http://schemas.microsoft.com/windows/pki/2005/Authenticode"><r:grant><as:ManifestInformation Hash="32becb410aba52d7f42c2db5fe020e1512197b59" Description="" Url=""><as:assemblyIdentity name="Bolt2Optima.exe" version="2020.1105.56.5" publicKeyToken="6f06b952c6b3523f" language="neutral" processorArchitecture="msil" type="win32" /></as:ManifestInformation><as:SignedBy /><as:AuthenticodePublisher><as:X509SubjectName>CN=RGW\user</as:X509SubjectName></as:AuthenticodePublisher></r:grant><r:issuer><Signature Id="AuthenticodeSignature" xmlns="http://www.w3.org/2000/09/xmldsig#"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#" /><SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha1" /><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature" /><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#" /></Transforms><DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" /><DigestValue>cp/k4mUIdWm2FjGcXgpKyBHfwrI=</DigestValue></Reference></SignedInfo><SignatureValue>rwK5iGC0/NBNM0myKFQW6+VAWukiPp4g+podbrgCq3lbWdBsVHZDR6ZjDZDcf6eaGnB+kxAfNo/zuBo+iU98beXEizv9HzLHBF3DyYMyoqrrsppw/Uq/2DsiCZjxa1/lyj+/+kZoJtPCPg+ON8isjg2r69VwI2wnzH1gHIpqrpw=</SignatureValue><KeyInfo><KeyValue><RSAKeyValue><Modulus>sOSFpaEiwWqUMI7dr4gzLiw1KpLvAezkmYUEYgH5aCbVa5j5vdyNnZsSTTksttebog6q9UMk1KSLOHd/pdrrK6coCpqvJOge6cCqIm3d5LRNtftpq4HH0C3n30nI4JaT9PT1NEnx5WXDhvQTS5LmY51qzeZzy5gwT0bQvJA5DoE=</Modulus><Exponent>AQAB</Exponent></RSAKeyValue></KeyValue><X509Data><X509Certificate>MIIBuTCCASKgAwIBAgIQFjiVSm4BmZ1O05a+IbBrgTANBgkqhkiG9w0BAQUFADAbMRkwFwYDVQQDHhAAUgBHAFcAXAB1AHMAZQByMB4XDTIwMTEwNTIwMTUwMFoXDTIxMTEwNjAyMTUwMFowGzEZMBcGA1UEAx4QAFIARwBXAFwAdQBzAGUAcjCBnzANBgkqhkiG9w0BAQEFAAOBjQAwgYkCgYEAsOSFpaEiwWqUMI7dr4gzLiw1KpLvAezkmYUEYgH5aCbVa5j5vdyNnZsSTTksttebog6q9UMk1KSLOHd/pdrrK6coCpqvJOge6cCqIm3d5LRNtftpq4HH0C3n30nI4JaT9PT1NEnx5WXDhvQTS5LmY51qzeZzy5gwT0bQvJA5DoECAwEAATANBgkqhkiG9w0BAQUFAAOBgQA4boxblN225i1krjoOtWiXpbq0A6zFXjKDG0n15t5N5qHECjcaR+KSu4AVlk1LUeuzdlC+y39KMI4ZNHFPOBuZItjyrf+TqB7LShVuBP1qT27UovBGcZVw1tetN2mLWXrc74Z5u9MUgcbpaCBi8694w0NoZZuoxPHI+JS3S/Ad4Q==</X509Certificate></X509Data></KeyInfo></Signature></r:issuer></r:license></msrel:RelData></KeyInfo></Signature></asmv1:assembly>
