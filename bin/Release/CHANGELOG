@@ -1,6 +1,18 @@
 Bolt2Optima (c) MARM.pl Sp. z o.o.
 Bolt 2 Optima konwerter (c) 2020 by MARM.pl
 
+v.2020.1106		 -Domyślnie wyczyszczone pola domyślnego kodu pocztowego i Miasta dla konwersji
+				 -Usunięto Pole Adres z pola adresu kontrahenta\
+				 -Dopisano do pola Opis w Rejestrze Sprzedaży i Data przejazdu -limit 50 znaków
+				 -W polu dodatkowe kontrhenta wpisany jest Adres odbioru(ź), adres dojazdu(d) ale jest limit 40 znaków
+				 -Wypelniono wszystkie Daty Data zakończenia przejazdu -bolt zalacza w zestawieniu faktur po tej dacie
+				 -Skorygowano stawkę VAT na wyliczaną na podstawie pól Cena netto i cena brutto (Suma) oraz zaokrąglaniu do 1 miejsca po przecinku
+				 -zoptymalizowany arkusz stylów poprzez zmienne
+				 -dodano możliwość wyboru rodzaju sprzedaży
+				 -Dodano możliwość wybrania domyślnej kategorii importu i przy braku w OPTIMIE -zdefiniowanie nowej przychodowej
+				 -Poprawiono automatyczne uzupełnianie lustrzanych pół IDKSI->IDSEN i IDSEN->IDKSI zmieniając w lustrzanej wartości ostatni znak na jedną literę później lub jedną wcześniej gdy ostatnia i zezwolono tylko na duze litery -pozostale znaki wykluczono
+				 -Dodano screenshot miejsca konfiguracji IDKSI -identyfikatora ksiegowości dla poprawnego importu w OPTIMIE
+				 
 
 v.2020.1105.30.0 -Dodane opisy ChangeLog i Readme wyświetlane w oknie po podwójnym kliknięciu myszki w dolnej częsci okna
 v.2020.1105.28.0 -Inicjalna wersja z 2020-11-05 build 28 -w wersji jest data dla latwiejszej identyfikacji

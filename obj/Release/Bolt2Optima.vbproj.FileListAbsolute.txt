@@ -21,3 +21,4 @@ C:\Users\Rysza\source\repos\Bolt2Optim\obj\Release\Bolt2Optima.vbproj.CopyComple
 C:\Users\Rysza\source\repos\Bolt2Optim\obj\Release\Bolt2Optima.exe
 C:\Users\Rysza\source\repos\Bolt2Optim\obj\Release\Bolt2Optima.xml
 C:\Users\Rysza\source\repos\Bolt2Optim\obj\Release\Bolt2Optima.pdb
+C:\Users\Rysza\source\repos\Bolt2Optim\obj\Release\Bolt2Optima.frm_helper.resources
