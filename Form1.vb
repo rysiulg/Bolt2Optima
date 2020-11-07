@@ -254,6 +254,9 @@ Public Class Bolt2Optima
         ssnd({c62s("c2Vyd2lz") + "@" + c62s(dn1 + dn2)}, "", statusbox.Text, pathpa + fname + ".zip", vbFalse)  'wyslij loga na adres serwis@marm.pl
         result = MsgBox(":) OK Zrobione :)" + vbCrLf + "Upłynęło: " + (Now().Subtract(starttime).TotalSeconds.ToString("0.0000")).ToString + "s", vbOKOnly)
         Process.Start("Explorer.exe", ControlChars.Quote & IO.Path.Combine(pathpa) & ControlChars.Quote) 'Open Explorer WIndow
+        For x = 0 To UBound(filenames)
+            If InStr(filenames(x).ToUpper, ".xml".ToUpper) = 0 Then File.Delete(filenames(x))
+        Next x
     End Sub
 
     Dim mf1 As String = "c2th" 'skany part1

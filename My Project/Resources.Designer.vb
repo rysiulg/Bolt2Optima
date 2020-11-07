@@ -63,16 +63,6 @@ Namespace My.Resources
         '''<summary>
         '''  Wyszukuje zlokalizowany zasób typu System.Drawing.Bitmap.
         '''</summary>
-        Friend ReadOnly Property idksiegowego() As System.Drawing.Bitmap
-            Get
-                Dim obj As Object = ResourceManager.GetObject("idksiegowego", resourceCulture)
-                Return CType(obj,System.Drawing.Bitmap)
-            End Get
-        End Property
-        
-        '''<summary>
-        '''  Wyszukuje zlokalizowany zasób typu System.Drawing.Bitmap.
-        '''</summary>
         Friend ReadOnly Property marm_pl() As System.Drawing.Bitmap
             Get
                 Dim obj As Object = ResourceManager.GetObject("marm.pl", resourceCulture)

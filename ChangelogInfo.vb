@@ -29,17 +29,25 @@ Public Class ChangelogInfo
     End Sub
 
     Private Sub Upload_infobox()
-        If Bolt2Optima.Debugflag Then
-            Dim resource_data As String() = Assembly.GetExecutingAssembly().GetManifestResourceNames()
-            Bolt2Optima.result = MsgBox(resource_data.ToString)
-        End If
-        If Bolt2Optima.Debugflag Then Bolt2Optima.result = MsgBox(ComboBox1.SelectedIndex)
+        Try
+            If Bolt2Optima.Debugflag Then
+                Dim resource_data As String() = Assembly.GetExecutingAssembly().GetManifestResourceNames()
+                Bolt2Optima.result = MsgBox(resource_data.ToString)
+            End If
+            If Bolt2Optima.Debugflag Then Bolt2Optima.result = MsgBox(ComboBox1.SelectedIndex)
+        Catch ex As Exception
+            MessageBox.Show(ex.Message, "Error Getting Text f contents...")
+        End Try
         Try
             Dim reader As StreamReader = New StreamReader(Assembly.GetExecutingAssembly().GetManifestResourceStream(Bolt2Optima.Namespacefile + ComboBox1.SelectedItem().ToString))
             InfoBox_details.Text = reader.ReadToEnd()
-        Catch
-            Bolt2Optima.result = MsgBox("Error Getting Text f contents...")
+        Catch ex As Exception
+            MessageBox.Show(ex.Message, "Error Getting Text f contents...")
         End Try
         InfoBox_details.Update()
+    End Sub
+
+    Private Sub InfoBox_details_TextChanged(sender As Object, e As EventArgs) Handles InfoBox_details.TextChanged
+
     End Sub
 End Class

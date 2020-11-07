@@ -22,11 +22,6 @@ Zwraca buforowane wystąpienie ResourceManager używane przez tę klasę.
   przypadków przeszukiwania zasobów za pomocą tej klasy zasobów wymagającej zdefiniowania typu.
 </summary>
 </member>
-<member name="P:Bolt2Optima.My.Resources.Resources.idksiegowego">
-<summary>
-  Wyszukuje zlokalizowany zasób typu System.Drawing.Bitmap.
-</summary>
-</member>
 <member name="P:Bolt2Optima.My.Resources.Resources.marm_pl">
 <summary>
   Wyszukuje zlokalizowany zasób typu System.Drawing.Bitmap.
