@@ -27,17 +27,16 @@
             <xsl:element name="BAZA_ZRD_ID"><xsl:value-of select="$pOptZrd"/></xsl:element>
             <xsl:element name="BAZA_DOC_ID"><xsl:value-of select="$pOptDoc"/></xsl:element>
         </xsl:element>
-    <!--    <xsl:if test="$pKategoria!=''">-->
             <xsl:element name="KATEGORIE">
                 <xsl:element name="WERSJA"><xsl:text>2.00</xsl:text></xsl:element>
                 <xsl:element name="BAZA_ZRD_ID"><xsl:value-of select="$pOptZrd"/></xsl:element>
                 <xsl:element name="BAZA_DOC_ID"><xsl:value-of select="$pOptDoc"/></xsl:element>
                 <xsl:element name="KATEGORIA">
                     <xsl:element name="KOD_OGOLNY">
-                        <xsl:value-of select="$pKategoria"/>
+                        <xsl:value-of select="translate($pKategoria,$lcase,$ucase)"/>
                     </xsl:element>
                     <xsl:element name="KOD">
-                        <xsl:value-of select="$pKategoria"/>
+                        <xsl:value-of select="translate($pKategoria,$lcase,$ucase)"/>
                     </xsl:element>
                     <xsl:element name="TYP">
                         <xsl:value-of select="'przychód'"/>
@@ -49,7 +48,6 @@
                     
                 </xsl:element>
             </xsl:element>
-        <!--</xsl:if>-->
         <xsl:element name="KONTRAHENCI">
         <xsl:call-template name="ParseDataKontah"/>
         </xsl:element>
@@ -156,7 +154,7 @@ dane podmiotu-->
 
                 <xsl:element name="KATEGORIA">
                     <!--STRING(20) Kod kategorii dokumentu. Po tym polu będzie rozpoznawana kategoria w bazie danych CDN OPT!MA.-->
-                    <xsl:value-of select="substring($pKategoria,1,20)"/>
+                    <xsl:value-of select="substring(translate($pKategoria,$lcase,$ucase),1,20)"/>
                 </xsl:element>
 
                 <xsl:element name="OPIS">
@@ -190,9 +188,9 @@ dane podmiotu-->
                             <xsl:value-of
                                 select="format-number((($brutto div $netto) - 1) * 100, '#0.0')"/>
                         </xsl:element>
-                        <xsl:if test="$pKategoria!=''">
+                        <xsl:if test="translate($pKategoria,$lcase,$ucase)!=''">
                             <xsl:element name="KATEGORIA_POS">
-                                <xsl:value-of select="$pKategoria"/>
+                                <xsl:value-of select="translate($pKategoria,$lcase,$ucase)"/>
                             </xsl:element>
                         </xsl:if>
                         <xsl:element name="STATUS_VAT">

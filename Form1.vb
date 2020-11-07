@@ -75,14 +75,14 @@ Public Class Bolt2Optima
             If Not (secrow = 0 And _firstrowdata = vbTrue) Then dt.Rows.Add(fields)
             If (secrow = 2) Then
                 Try
-                    prv_openmeplease(fields(11), {IDSender, IDSender, defaultPostCode, defaultCity, cb_usun_minus_nip, kat_sprzedazy, pUslugi_rodz_sprzed, count})
+                    prv_openmeplease(fields(11), {IDOptksieg, IDSender, defaultPostCode, defaultCity, cb_usun_minus_nip, kat_sprzedazy, pUslugi_rodz_sprzed, count})
                 Catch
                     If Debugflag Then MessageBox.Show("No Initial ini file")
                 End Try
                 count.Text = CStr(Val(count.Text) + 1)
                 statusbox.AppendText("Dane Kierowcy: " + fields(9) + " " + fields(10) + vbCrLf)
                 statusbox.AppendText(count.Text + "NIP: " + fields(11) + " REGON: " + fields(12) + vbCrLf)
-                prv_savecnf(fields(11), {IDSender, IDSender, defaultPostCode, defaultCity, cb_usun_minus_nip, kat_sprzedazy, pUslugi_rodz_sprzed, count})
+                prv_savecnf(fields(11), {IDOptksieg, IDSender, defaultPostCode, defaultCity, cb_usun_minus_nip, kat_sprzedazy, pUslugi_rodz_sprzed, count})
             End If
             secrow += 1
         End While
@@ -169,6 +169,7 @@ Public Class Bolt2Optima
         My.Computer.FileSystem.CreateDirectory(mojapath)
         Try
             Dim file As New IO.StreamReader(mojapath + GetHash(fni, 1) + ".ini", Encoding.GetEncoding("UTF-8"), True)
+            Dim onlycount As String = ""
             Dim tmpl As String = file.ReadLine()
             If tmpl.Length() = 0 Then
                 file.Dispose()
@@ -177,9 +178,7 @@ Public Class Bolt2Optima
             End If
             result = MessageBox.Show("Wykryto zapisaną konfigurację dla tego podmiotu." + vbCrLf + "Przywrócić zapisane ustawienia?" + vbCrLf + "Wybierając Nie zastosowane zostaną ustawienia z aktywnego okna", "Istnieje już konfiguracja podmiotu.", MessageBoxButtons.YesNo)
             If result = System.Windows.Forms.DialogResult.No Then
-                file.Dispose()
-                file.Close()
-                Exit Try
+                onlycount = "," + count.Name + ","
             End If
             Dim line As String = c62s(tmpl)
             '    Dim a As String = Left(line, InStr(line, ("=")))
@@ -187,7 +186,7 @@ Public Class Bolt2Optima
             For o As Integer = 0 To restline.Length() - 1
                 Dim rest As String() = Split(restline(o), Chr(0))
                 For s As Integer = 0 To stbu.Length() - 1
-                    If c62s(rest(0)) = stbu(s).name Then
+                    If (c62s(rest(0)) = stbu(s).name And onlycount = "") Or (c62s(rest(0)) = stbu(s).name And InStr(onlycount, "," + stbu(s).name + ",") > 0) Then
                         If InStr(stbu(s).GetType().ToString, "CheckBox") > 0 Then
                             stbu(s).Checked = string2bool(c62s(rest(1)))
                         Else
@@ -348,7 +347,7 @@ Public Class Bolt2Optima
 
     Private Sub Bolt2Optima_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Me.AllowDrop = True
-        Me.Text += " v." + Application.ProductVersion + " " + c62s("KGMpIE1BUk0ucGwgU3AuIHogby5vLg")  '(c) MARM.pl Sp. z o.o.
+        Me.Text += " v." + Application.ProductVersion + " " + c62s("KGMpIE1BUk0ucGwgU3AuIHogby5vLg==")  '(c) MARM.pl Sp. z o.o.
         Me.IDOptksieg.Text = Me.idksieg
         Me.IDSender.Text = Me.idnadaw
         Me.pUslugi_rodz_sprzed.Text = Me.pUslugi_rodz_sprzed_def
@@ -358,27 +357,24 @@ Public Class Bolt2Optima
 
     Private Sub Bolt2Optima_DragDrop(sender As Object, e As DragEventArgs) Handles Me.DragDrop
         Dim files() As String = e.Data.GetData(DataFormats.FileDrop)
-        For Each path In files
-            If (Debugflag = vbTrue) Then result = MsgBox(path)
-            statusbox.Clear()
-            filepath = path
-            CsvToXml(path, "BOLT", ",", path + ".xml", Namespacefile + "XSLTFile1.xslt")
-        Next
+        Try
+            For Each path In files
+                If (Debugflag = vbTrue) Then result = MsgBox(path)
+                statusbox.Clear()
+                filepath = path
+                CsvToXml(path, "BOLT", ",", path + ".xml", Namespacefile + "XSLTFile1.xslt")
+            Next
+        Catch ex As Exception
+            MessageBox.Show(ex.Message, "ERROR: 0x0023")
+        End Try
         exitok()
     End Sub
 
-    Private Sub Bolt2Optima_DragEnter(sender As Object, e As DragEventArgs) Handles Me.DragEnter
-        If e.Data.GetDataPresent(DataFormats.FileDrop) Then
-            e.Effect = DragDropEffects.Copy
-        End If
-    End Sub
-
-    Private Sub statusbox_Click(sender As Object, e As EventArgs) Handles statusbox.Click
-        ChangelogInfo.Hide()
+    Private Sub statusbox_DoubleClick(sender As Object, e As EventArgs) Handles statusbox.DoubleClick
         ChangelogInfo.Show()
     End Sub
 
-    Private Sub Bolt2Optima_Click(sender As Object, e As EventArgs) Handles Me.Click
+    Private Sub Bolt2Optima_DoubleClick(sender As Object, e As EventArgs) Handles Me.DoubleClick
         OpenFileDialogAll()
     End Sub
 
@@ -427,7 +423,7 @@ Public Class Bolt2Optima
         Return tmp1
     End Function
     Private Sub IDSender_Validating(sender As Object, e As CancelEventArgs) Handles IDSender.Validating
-        sender.Text = checkstring(sender.Text.ToUpper(), "A", "Z")
+        sender.Text = checkstring(sender.Text.ToUpper(), "A", "Z").trim
         If sender.Text.length() <> 5 Then
             result = MsgBox(kom_Wymaganie_ID)
             sender.Text = Me.idnadaw
