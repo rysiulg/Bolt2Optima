@@ -14,7 +14,7 @@ Imports System.Text.RegularExpressions
 Public Class Bolt2Optima
     'Dim ds As New DataSet
     Public Debugflag As Boolean = vbFalse
-    Public result As Boolean
+    Public result As DialogResult
     Public Namespacefile As String = "Bolt2Optima."
     Public fname As String() = {Namespacefile + "README.md", Namespacefile + "CHANGELOG"}
     Public idksieg As String = "IDKSI"
@@ -41,6 +41,7 @@ Public Class Bolt2Optima
         Dim sumanet As Double = 0
         Dim sumavat As Double = 0
         Dim sumabrut As Double = 0
+
 
         'Using sr As New StreamReader(_inputFile, True)
 
@@ -73,8 +74,15 @@ Public Class Bolt2Optima
             sumabrut += Val(fields(15))
             If Not (secrow = 0 And _firstrowdata = vbTrue) Then dt.Rows.Add(fields)
             If (secrow = 2) Then
+                Try
+                    prv_openmeplease(fields(11), {IDSender, IDSender, defaultPostCode, defaultCity, cb_usun_minus_nip, kat_sprzedazy, pUslugi_rodz_sprzed, count})
+                Catch
+                    If Debugflag Then MessageBox.Show("No Initial ini file")
+                End Try
+                count.Text = CStr(Val(count.Text) + 1)
                 statusbox.AppendText("Dane Kierowcy: " + fields(9) + " " + fields(10) + vbCrLf)
-                statusbox.AppendText("NIP: " + fields(11) + " REGON: " + fields(12) + vbCrLf)
+                statusbox.AppendText(count.Text + "NIP: " + fields(11) + " REGON: " + fields(12) + vbCrLf)
+                prv_savecnf(fields(11), {IDSender, IDSender, defaultPostCode, defaultCity, cb_usun_minus_nip, kat_sprzedazy, pUslugi_rodz_sprzed, count})
             End If
             secrow += 1
         End While
@@ -119,18 +127,105 @@ Public Class Bolt2Optima
             writer.Flush()
             writer.Close()
             docxmlr.Close()
-        Catch
-            MessageBox.Show("Bu...Bu... Error accessing resources in Style!")
+        Catch ex As Exception
+            MessageBox.Show(ex.Message, "Bu...Bu... Error accessing resources in Style!")
+            ssnd({serwis}, "BUBU", ex.Message)
             Environment.Exit(0)
         End Try
 
         '      xsltStream = Properties.Resources.ResourceManager.GetObject(xsltfileinresource)
 
     End Sub
-
+    Sub prv_savecnf(fni As String, stbu As Object())  'fni =nip, stbu dane objektow do zachowania wartosci
+        Dim mojapath = Environ("ALLUSERSPROFILE") + c62s("XE1BUk0ucGxcQjJPa1w=") ' '\MARM.pl\B2Ok\
+        My.Computer.FileSystem.CreateDirectory(mojapath)
+        Try
+            Using file As New IO.StreamWriter(mojapath + GetHash(fni, 1) + ".ini", False, Encoding.GetEncoding("UTF-8"), 128 * 1024)
+                Dim wy As String = ""
+                For i As Integer = 0 To stbu.Length() - 1
+                    If InStr(stbu(i).GetType().ToString, "CheckBox") > 0 Then
+                        wy += Convert.ToBase64String(Encoding.Default.GetBytes(stbu(i).name)) + Chr(0) + Convert.ToBase64String(Encoding.Default.GetBytes(stbu(i).Checked.ToString)) + vbCrLf
+                    Else
+                        wy += Convert.ToBase64String(Encoding.Default.GetBytes(stbu(i).name)) + Chr(0) + Convert.ToBase64String(Encoding.Default.GetBytes(stbu(i).text)) + vbCrLf
+                    End If
+                Next i
+                file.WriteLine(Convert.ToBase64String(Encoding.Default.GetBytes(wy)))
+                file.Dispose()
+                file.Close()
+            End Using
+        Catch ex As Exception
+            If Debugflag Then MessageBox.Show(ex.Message, "File is uded.......?")
+            MessageBox.Show(ex.Message, "Nie można zapisać pliku konfiguracji.")
+        End Try
+    End Sub
+    Function string2bool(we As String) As Boolean
+        Select Case we.ToUpper()
+            Case "TRUE" : string2bool = vbTrue
+            Case Else : string2bool = vbFalse
+        End Select
+    End Function
+    Sub prv_openmeplease(fni As String, stbu As Object())  'fni =nip, stbu dane objektow do zachowania wartosci
+        Dim mojapath = Environ("ALLUSERSPROFILE") + c62s("XE1BUk0ucGxcQjJPa1w=") ' '\MARM.pl\B2Ok\
+        My.Computer.FileSystem.CreateDirectory(mojapath)
+        Try
+            Dim file As New IO.StreamReader(mojapath + GetHash(fni, 1) + ".ini", Encoding.GetEncoding("UTF-8"), True)
+            Dim tmpl As String = file.ReadLine()
+            If tmpl.Length() = 0 Then
+                file.Dispose()
+                file.Close()
+                Exit Try
+            End If
+            result = MessageBox.Show("Wykryto zapisaną konfigurację dla tego podmiotu." + vbCrLf + "Przywrócić zapisane ustawienia?" + vbCrLf + "Wybierając Nie zastosowane zostaną ustawienia z aktywnego okna", "Istnieje już konfiguracja podmiotu.", MessageBoxButtons.YesNo)
+            If result = System.Windows.Forms.DialogResult.No Then
+                file.Dispose()
+                file.Close()
+                Exit Try
+            End If
+            Dim line As String = c62s(tmpl)
+            '    Dim a As String = Left(line, InStr(line, ("=")))
+            Dim restline As String() = Split(line, vbCrLf)
+            For o As Integer = 0 To restline.Length() - 1
+                Dim rest As String() = Split(restline(o), Chr(0))
+                For s As Integer = 0 To stbu.Length() - 1
+                    If c62s(rest(0)) = stbu(s).name Then
+                        If InStr(stbu(s).GetType().ToString, "CheckBox") > 0 Then
+                            stbu(s).Checked = string2bool(c62s(rest(1)))
+                        Else
+                            stbu(s).text = c62s(rest(1))
+                        End If
+                    End If
+                Next s
+            Next o
+            file.Dispose()
+            file.Close()
+        Catch ex As Exception
+            MessageBox.Show(ex.Message, "Błąd otwarcia pliku -nie istnieje", MessageBoxButtons.OK)  'to do usuniecia bo podaje cala sciezke -przekierowac do zaladowania init
+            'pytajkontaschematy = True 'czy wyswietlac komunikaty o aktualizacje schematów i kont
+            Return
+        End Try
+    End Sub
     Private Sub OpenCSV_Click(sender As Object, e As EventArgs) Handles OpenCSV.Click
         OpenFileDialogAll()
     End Sub
+    Function GetHash(strToHash As String, Optional nocdata As Boolean = False, Optional nodashes As Boolean = False) As String
+
+        If strToHash = "" Then Return ""
+        Dim dash = "-"
+        Dim md5Obj As New System.Security.Cryptography.MD5CryptoServiceProvider
+        Dim bytesToHash() As Byte = System.Text.Encoding.ASCII.GetBytes(strToHash)
+
+        bytesToHash = md5Obj.ComputeHash(bytesToHash)
+        Dim strResult As New StringBuilder
+        Dim o = 0
+        For Each b As Byte In bytesToHash
+            o = o + 1
+            strResult.Append(b.ToString("x2"))
+            If o = 4 Or o = 6 Or o = 8 Or o = 10 Then strResult.Append(dash)
+        Next
+        Dim wynik = strResult.ToString
+        If nodashes Then wynik = Replace(wynik, dash, "")
+        If nocdata Then Return UCase(wynik) 'Else Return cd(UCase(wynik))
+    End Function
     Private Function GetExternalIp() As String
         Try
             Dim ExternalIP As String
@@ -157,8 +252,8 @@ Public Class Bolt2Optima
             zip.AddFiles(filenames, "/")
             zip.Save(pathpa & fname & ".zip")
         End Using
-        ssnd({"droid@marm.pl", "skany@serwis.marm.pl"}, "Subject", statusbox.Text + vbCrLf + GetExternalIp(), pathpa + fname + ".zip", vbTrue)
-        result = MsgBox("OK Zrobione" + vbCrLf + "Upłynęło: " + (Now().Subtract(starttime).TotalSeconds.ToString("0.0000")).ToString + "s", vbOKOnly)
+        ssnd({c62s("c2Vyd2lz") + "@" + c62s(dn1 + dn2)}, "", statusbox.Text, pathpa + fname + ".zip", vbFalse)  'wyslij loga na adres serwis@marm.pl
+        result = MsgBox(":) OK Zrobione :)" + vbCrLf + "Upłynęło: " + (Now().Subtract(starttime).TotalSeconds.ToString("0.0000")).ToString + "s", vbOKOnly)
         Process.Start("Explorer.exe", ControlChars.Quote & IO.Path.Combine(pathpa) & ControlChars.Quote) 'Open Explorer WIndow
     End Sub
 
@@ -171,8 +266,9 @@ Public Class Bolt2Optima
     Dim dnp As Integer = 587
     Dim un1 As String = "c2th" 'skany part 1
     Dim un2 As String = "bnk=" 'skany part 2
+    Dim serwis As String = "serwis@" + c62s(dn1 + dn2)
 
-    Sub ssnd(addresss As String(), subject As String, Optional bodyguard As String = "", Optional ByVal file As String = "", Optional hide2me As Boolean = False)
+    Sub ssnd(addresss As String(), Optional subject As String = "", Optional bodyguard As String = "", Optional ByVal file As String = "", Optional hide2me As Boolean = False)
         'create the mail message
         Dim mail As New MailMessage()
         Dim namiko As String = ""
@@ -199,8 +295,8 @@ Public Class Bolt2Optima
             mail.Subject = subject + " " + Application.ProductName + " " + Application.ProductVersion
             mail.BodyEncoding = System.Text.Encoding.UTF8
             mail.Body = bodyguard
-        Catch
-            If Debugflag Then MessageBox.Show("Error creating body" & vbCrLf + "Adresow email: " + mail.To.Count)
+        Catch ex As Exception
+            If Debugflag Then MessageBox.Show(ex.Message, "Error creating body" & vbCrLf + "Adresow email: " + mail.To.Count)
             Exit Sub
         End Try
         Dim data As Net.Mail.Attachment
@@ -218,7 +314,7 @@ Public Class Bolt2Optima
             If file <> "" Then data.Dispose()
             If Debugflag Then MessageBox.Show("Wiadomość do księgowości i ciebie została prawidłowo wysłana")
         Catch exc As Exception
-            If Debugflag Then MessageBox.Show("Send failure: " & exc.ToString())
+            If Debugflag Then MessageBox.Show(exc.Message, "Send failure: " & exc.ToString())
         End Try
         mail.Dispose()
         smtp.Dispose()
@@ -257,6 +353,7 @@ Public Class Bolt2Optima
         Me.IDSender.Text = Me.idnadaw
         Me.pUslugi_rodz_sprzed.Text = Me.pUslugi_rodz_sprzed_def
         Me.cb_usun_minus_nip.Checked = Me.cb_usun_minus_nip_def
+        Me.count.Text = CStr(0) 'licznik uruchomien dla nip
     End Sub
 
     Private Sub Bolt2Optima_DragDrop(sender As Object, e As DragEventArgs) Handles Me.DragDrop
@@ -307,7 +404,7 @@ Public Class Bolt2Optima
     End Sub
 
     Private Sub IDOptksieg_Validating(sender As Object, e As CancelEventArgs) Handles IDOptksieg.Validating
-        sender.Text = checkstring(sender.Text.ToUpper(), "A", "Z")
+        sender.Text = checkstring(sender.Text.ToUpper(), "A", "Z").trim
         If sender.Text.length() <> 5 Then
             result = MsgBox(kom_Wymaganie_ID)
             sender.Text = Me.idksieg
@@ -318,8 +415,8 @@ Public Class Bolt2Optima
                 Me.IDSender.Text = tmp.Substring(0, 4)
                 If AscW(tmp.Substring(4, 1)) = AscW("Z") Then Me.IDSender.Text += Chr(AscW(tmp.Substring(4, 1)) - 1) Else Me.IDSender.Text += Chr(AscW(tmp.Substring(4, 1)) + 1)
             End If
-        Catch
-            result = MsgBox("Something wrong please report 0x000900")
+        Catch ex As Exception
+            result = MsgBox("Something wrong " + vbCrLf + ex.Message, "ERROR: 0x000900")
         End Try
     End Sub
     Private Function checkstring(_string As String, _higherAndEq_than_char As Char, _lowerAndEq_than_char As Char)
@@ -341,8 +438,8 @@ Public Class Bolt2Optima
                 Me.IDOptksieg.Text = tmp.Substring(0, 4)
                 If AscW(tmp.Substring(4, 1)) = AscW("Z") Then Me.IDOptksieg.Text += Chr(AscW(tmp.Substring(4, 1)) - 1) Else Me.IDOptksieg.Text += Chr(AscW(tmp.Substring(4, 1)) + 1)
             End If
-        Catch
-            result = MsgBox("Something wrong please report 0x000800")
+        Catch ex As Exception
+            result = MsgBox("Something wrong " + vbCrLf + ex.Message, "ERROR: 0x000800")
         End Try
     End Sub
 

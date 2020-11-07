@@ -33,6 +33,7 @@ Trafiają się też litery "ruskie" -zrobilem translator tych liter do polskawyc
 Prosze o info i ew. wskazowki ;)
 W przypadku błędów proszę o plik źródłowy do analizy i najlepiej screenshot wysłany na e-mail b2ok@marm.pl
 
+
 PS. Wersja bezpłatna wysyła logi statystyczne i analityczne.
 
 

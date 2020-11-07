@@ -1,10 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <asmv1:assembly xsi:schemaLocation="urn:schemas-microsoft-com:asm.v1 assembly.adaptive.xsd" manifestVersion="1.0" xmlns:asmv1="urn:schemas-microsoft-com:asm.v1" xmlns="urn:schemas-microsoft-com:asm.v2" xmlns:asmv2="urn:schemas-microsoft-com:asm.v2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:co.v1="urn:schemas-microsoft-com:clickonce.v1" xmlns:asmv3="urn:schemas-microsoft-com:asm.v3" xmlns:dsig="http://www.w3.org/2000/09/xmldsig#" xmlns:co.v2="urn:schemas-microsoft-com:clickonce.v2">
-  <asmv1:assemblyIdentity name="Bolt2Optima.exe" version="2020.1105.56.9" publicKeyToken="0000000000000000" language="neutral" processorArchitecture="msil" type="win32" />
+  <asmv1:assemblyIdentity name="Bolt2Optima.exe" version="2020.1107.151.9" publicKeyToken="6f06b952c6b3523f" language="neutral" processorArchitecture="msil" type="win32" />
   <description asmv2:iconFile="Resources\favicon.ico" xmlns="urn:schemas-microsoft-com:asm.v1" />
   <application />
   <entryPoint>
-    <assemblyIdentity name="Bolt2Optima" version="2020.1107.150.4" language="neutral" processorArchitecture="msil" />
+    <assemblyIdentity name="Bolt2Optima" version="2020.1107.152.9" language="neutral" processorArchitecture="msil" />
     <commandLine file="Bolt2Optima.exe" parameters="" />
   </entryPoint>
   <trustInfo>
@@ -43,26 +43,26 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Bolt2Optima.exe" size="617840">
-      <assemblyIdentity name="Bolt2Optima" version="2020.1107.150.4" language="neutral" processorArchitecture="msil" />
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Bolt2Optima.exe" size="616304">
+      <assemblyIdentity name="Bolt2Optima" version="2020.1107.152.9" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-        <dsig:DigestValue>L2uVzU3pCtQvZM47KoKexqMNflc=</dsig:DigestValue>
+        <dsig:DigestValue>mTRbVSwHezwgC/h19TwEbWkqBPg=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
   <dependency>
     <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="pl\Bolt2Optima.resources.dll" size="55808">
-      <assemblyIdentity name="Bolt2Optima.resources" version="2020.1107.150.4" language="pl" processorArchitecture="msil" />
+      <assemblyIdentity name="Bolt2Optima.resources" version="2020.1107.152.9" language="pl" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-        <dsig:DigestValue>rnF9yq8SJDdrXng3uhtOY/m1LwI=</dsig:DigestValue>
+        <dsig:DigestValue>V+Ndf0P3oQq29ubAt34KOfK29Yg=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -104,4 +104,4 @@
       <!--<supportedOS Id="{8e0f7a12-bfb3-4fe8-b9a5-48fd50a15a9a}" />-->
     </application>
   </compatibility>
-</asmv1:assembly>
+<publisherIdentity name="CN=RGW\user" issuerKeyHash="722f284def10fd6304ebb2ddc17f5e30267d5f07" /><Signature Id="StrongNameSignature" xmlns="http://www.w3.org/2000/09/xmldsig#"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#" /><SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha1" /><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature" /><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#" /></Transforms><DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" /><DigestValue>lhoQfneP4sitPnldzW90lv1ekWw=</DigestValue></Reference></SignedInfo><SignatureValue>o40J35ppbFidK1Iyqn0CaWyYhDtQLy0WwiaD+x5Yz+0uZu2dAEMW01u22DArWqHcy+Rdlm+pPWZUSk+0yMUjxj7YhWzWjhcXsDzdySB6jl+GBVvOcfCHHx/zIyyFPl70QS8ojQkK11E3Ia05b9PZWx7n8LAlJ8Bt4XUdAjTC4vc=</SignatureValue><KeyInfo Id="StrongNameKeyInfo"><KeyValue><RSAKeyValue><Modulus>sOSFpaEiwWqUMI7dr4gzLiw1KpLvAezkmYUEYgH5aCbVa5j5vdyNnZsSTTksttebog6q9UMk1KSLOHd/pdrrK6coCpqvJOge6cCqIm3d5LRNtftpq4HH0C3n30nI4JaT9PT1NEnx5WXDhvQTS5LmY51qzeZzy5gwT0bQvJA5DoE=</Modulus><Exponent>AQAB</Exponent></RSAKeyValue></KeyValue><msrel:RelData xmlns:msrel="http://schemas.microsoft.com/windows/rel/2005/reldata"><r:license xmlns:r="urn:mpeg:mpeg21:2003:01-REL-R-NS" xmlns:as="http://schemas.microsoft.com/windows/pki/2005/Authenticode"><r:grant><as:ManifestInformation Hash="6c915efd96746fcd5d793eadc8e28f777e101a96" Description="" Url=""><as:assemblyIdentity name="Bolt2Optima.exe" version="2020.1107.151.9" publicKeyToken="6f06b952c6b3523f" language="neutral" processorArchitecture="msil" type="win32" /></as:ManifestInformation><as:SignedBy /><as:AuthenticodePublisher><as:X509SubjectName>CN=RGW\user</as:X509SubjectName></as:AuthenticodePublisher></r:grant><r:issuer><Signature Id="AuthenticodeSignature" xmlns="http://www.w3.org/2000/09/xmldsig#"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#" /><SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha1" /><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature" /><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#" /></Transforms><DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" /><DigestValue>dCtwgRikul4P6+U0oElqPKqeSBM=</DigestValue></Reference></SignedInfo><SignatureValue>BXaz+4tQDqtJqBGS9cwEcV1VoudgNpJhQB6VngXtXDs1asW94FFebCZZ2PHZdM2kvMM0GmFNNpVYMmpeCkWjfEh81j0B/45vTwdQIZrJ135gKk6O+bxcB8+2B6GOx8yrtYfbbBO9F5KIokh0FcJpLuB7VZARnyuiR6bJE2p4rto=</SignatureValue><KeyInfo><KeyValue><RSAKeyValue><Modulus>sOSFpaEiwWqUMI7dr4gzLiw1KpLvAezkmYUEYgH5aCbVa5j5vdyNnZsSTTksttebog6q9UMk1KSLOHd/pdrrK6coCpqvJOge6cCqIm3d5LRNtftpq4HH0C3n30nI4JaT9PT1NEnx5WXDhvQTS5LmY51qzeZzy5gwT0bQvJA5DoE=</Modulus><Exponent>AQAB</Exponent></RSAKeyValue></KeyValue><X509Data><X509Certificate>MIIBuTCCASKgAwIBAgIQFjiVSm4BmZ1O05a+IbBrgTANBgkqhkiG9w0BAQUFADAbMRkwFwYDVQQDHhAAUgBHAFcAXAB1AHMAZQByMB4XDTIwMTEwNTIwMTUwMFoXDTIxMTEwNjAyMTUwMFowGzEZMBcGA1UEAx4QAFIARwBXAFwAdQBzAGUAcjCBnzANBgkqhkiG9w0BAQEFAAOBjQAwgYkCgYEAsOSFpaEiwWqUMI7dr4gzLiw1KpLvAezkmYUEYgH5aCbVa5j5vdyNnZsSTTksttebog6q9UMk1KSLOHd/pdrrK6coCpqvJOge6cCqIm3d5LRNtftpq4HH0C3n30nI4JaT9PT1NEnx5WXDhvQTS5LmY51qzeZzy5gwT0bQvJA5DoECAwEAATANBgkqhkiG9w0BAQUFAAOBgQA4boxblN225i1krjoOtWiXpbq0A6zFXjKDG0n15t5N5qHECjcaR+KSu4AVlk1LUeuzdlC+y39KMI4ZNHFPOBuZItjyrf+TqB7LShVuBP1qT27UovBGcZVw1tetN2mLWXrc74Z5u9MUgcbpaCBi8694w0NoZZuoxPHI+JS3S/Ad4Q==</X509Certificate></X509Data></KeyInfo></Signature></r:issuer></r:license></msrel:RelData></KeyInfo></Signature></asmv1:assembly>

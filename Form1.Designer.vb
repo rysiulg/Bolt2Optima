@@ -39,6 +39,7 @@ Partial Class Bolt2Optima
         Me.lblkat = New System.Windows.Forms.Label()
         Me.pUslugi_rodz_sprzed = New System.Windows.Forms.ComboBox()
         Me.kat_sprzedazy = New System.Windows.Forms.ComboBox()
+        Me.count = New System.Windows.Forms.Label()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
@@ -50,7 +51,7 @@ Partial Class Bolt2Optima
         Me.OpenCSV.Location = New System.Drawing.Point(632, 86)
         Me.OpenCSV.Name = "OpenCSV"
         Me.OpenCSV.Size = New System.Drawing.Size(143, 46)
-        Me.OpenCSV.TabIndex = 0
+        Me.OpenCSV.TabIndex = 9
         Me.OpenCSV.Text = "START"
         Me.OpenCSV.UseVisualStyleBackColor = False
         '
@@ -61,7 +62,7 @@ Partial Class Bolt2Optima
         Me.Label2.Location = New System.Drawing.Point(0, 47)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(116, 13)
-        Me.Label2.TabIndex = 17
+        Me.Label2.TabIndex = 0
         Me.Label2.Text = "Identyfikator Nadawcy:"
         '
         'IDSender
@@ -73,7 +74,7 @@ Partial Class Bolt2Optima
         Me.IDSender.MaxLength = 5
         Me.IDSender.Name = "IDSender"
         Me.IDSender.Size = New System.Drawing.Size(85, 21)
-        Me.IDSender.TabIndex = 16
+        Me.IDSender.TabIndex = 2
         Me.IDSender.Tag = "Miejsce na wprowadzenie kodu księgowości zdalnej (musi być zgodny z modułem w Opt" &
     "imie)"
         Me.IDSender.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
@@ -86,7 +87,7 @@ Partial Class Bolt2Optima
         Me.Label1.Location = New System.Drawing.Point(0, 25)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(130, 13)
-        Me.Label1.TabIndex = 15
+        Me.Label1.TabIndex = 0
         Me.Label1.Text = "Identyfikator Księgowości:"
         '
         'IDOptksieg
@@ -99,7 +100,7 @@ Partial Class Bolt2Optima
         Me.IDOptksieg.MaxLength = 5
         Me.IDOptksieg.Name = "IDOptksieg"
         Me.IDOptksieg.Size = New System.Drawing.Size(85, 21)
-        Me.IDOptksieg.TabIndex = 14
+        Me.IDOptksieg.TabIndex = 1
         Me.IDOptksieg.Tag = "Miejsce na wprowadzenie kodu księgowości zdalnej (musi być zgodny z modułem w Opt" &
     "imie)"
         Me.IDOptksieg.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
@@ -115,7 +116,7 @@ Partial Class Bolt2Optima
         Me.cb_usun_minus_nip.Location = New System.Drawing.Point(327, 93)
         Me.cb_usun_minus_nip.Name = "cb_usun_minus_nip"
         Me.cb_usun_minus_nip.Size = New System.Drawing.Size(96, 17)
-        Me.cb_usun_minus_nip.TabIndex = 34
+        Me.cb_usun_minus_nip.TabIndex = 6
         Me.cb_usun_minus_nip.Text = "Usuń ""-"" z NIP"
         Me.cb_usun_minus_nip.UseVisualStyleBackColor = True
         '
@@ -127,7 +128,7 @@ Partial Class Bolt2Optima
         Me.lbl_defCity.Location = New System.Drawing.Point(0, 119)
         Me.lbl_defCity.Name = "lbl_defCity"
         Me.lbl_defCity.Size = New System.Drawing.Size(193, 13)
-        Me.lbl_defCity.TabIndex = 38
+        Me.lbl_defCity.TabIndex = 0
         Me.lbl_defCity.Tag = "Gdy brak Miasta kontrachenta użyta zostanie ta wartość"
         Me.lbl_defCity.Text = "Domyślne miasto kontrahenta gdy brak:"
         '
@@ -139,7 +140,7 @@ Partial Class Bolt2Optima
         Me.lbl_default_PostCode.Location = New System.Drawing.Point(0, 97)
         Me.lbl_default_PostCode.Name = "lbl_default_PostCode"
         Me.lbl_default_PostCode.Size = New System.Drawing.Size(228, 13)
-        Me.lbl_default_PostCode.TabIndex = 36
+        Me.lbl_default_PostCode.TabIndex = 0
         Me.lbl_default_PostCode.Text = "Domyślny kod pocztowy kontrahenta gdy brak:"
         '
         'defaultPostCode
@@ -156,7 +157,7 @@ Partial Class Bolt2Optima
         Me.defaultPostCode.Mask = "00-000"
         Me.defaultPostCode.Name = "defaultPostCode"
         Me.defaultPostCode.Size = New System.Drawing.Size(56, 20)
-        Me.defaultPostCode.TabIndex = 39
+        Me.defaultPostCode.TabIndex = 5
         Me.defaultPostCode.Tag = "Miejsce na wprowadzenie alternatywnego kodu pocztowego"
         Me.defaultPostCode.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         '
@@ -174,7 +175,7 @@ Partial Class Bolt2Optima
         Me.defaultCity.MaxLength = 50
         Me.defaultCity.Name = "defaultCity"
         Me.defaultCity.Size = New System.Drawing.Size(194, 21)
-        Me.defaultCity.TabIndex = 40
+        Me.defaultCity.TabIndex = 7
         Me.defaultCity.Tag = "Miejsce na wprowadzenie kodu księgowości zdalnej (musi być zgodny z modułem w Opt" &
     "imie)"
         '
@@ -185,7 +186,7 @@ Partial Class Bolt2Optima
         Me.statusbox.Name = "statusbox"
         Me.statusbox.ReadOnly = True
         Me.statusbox.Size = New System.Drawing.Size(772, 221)
-        Me.statusbox.TabIndex = 42
+        Me.statusbox.TabIndex = 0
         Me.statusbox.Text = "                                                       KLIKNIJ W TO OKNO BY ZOBAC" &
     "ZYĆ README i/lub CHANGELOG"
         '
@@ -221,7 +222,7 @@ Partial Class Bolt2Optima
         Me.lblkat.Location = New System.Drawing.Point(0, 72)
         Me.lblkat.Name = "lblkat"
         Me.lblkat.Size = New System.Drawing.Size(105, 13)
-        Me.lblkat.TabIndex = 44
+        Me.lblkat.TabIndex = 0
         Me.lblkat.Text = "Kategoria sprzedaży:"
         '
         'pUslugi_rodz_sprzed
@@ -235,7 +236,7 @@ Partial Class Bolt2Optima
         Me.pUslugi_rodz_sprzed.Name = "pUslugi_rodz_sprzed"
         Me.pUslugi_rodz_sprzed.Size = New System.Drawing.Size(114, 21)
         Me.pUslugi_rodz_sprzed.Sorted = True
-        Me.pUslugi_rodz_sprzed.TabIndex = 47
+        Me.pUslugi_rodz_sprzed.TabIndex = 4
         '
         'kat_sprzedazy
         '
@@ -249,7 +250,16 @@ Partial Class Bolt2Optima
         Me.kat_sprzedazy.Name = "kat_sprzedazy"
         Me.kat_sprzedazy.Size = New System.Drawing.Size(135, 21)
         Me.kat_sprzedazy.Sorted = True
-        Me.kat_sprzedazy.TabIndex = 48
+        Me.kat_sprzedazy.TabIndex = 3
+        '
+        'count
+        '
+        Me.count.Enabled = False
+        Me.count.Location = New System.Drawing.Point(696, 12)
+        Me.count.Name = "count"
+        Me.count.Size = New System.Drawing.Size(28, 13)
+        Me.count.TabIndex = 47
+        Me.count.Visible = False
         '
         'Bolt2Optima
         '
@@ -260,6 +270,7 @@ Partial Class Bolt2Optima
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.SystemColors.GradientActiveCaption
         Me.ClientSize = New System.Drawing.Size(784, 361)
+        Me.Controls.Add(Me.count)
         Me.Controls.Add(Me.kat_sprzedazy)
         Me.Controls.Add(Me.pUslugi_rodz_sprzed)
         Me.Controls.Add(Me.lbl_rodz_sprzed)
@@ -303,4 +314,5 @@ Partial Class Bolt2Optima
     Friend WithEvents lblkat As Label
     Friend WithEvents pUslugi_rodz_sprzed As ComboBox
     Friend WithEvents kat_sprzedazy As ComboBox
+    Friend WithEvents count As Label
 End Class
