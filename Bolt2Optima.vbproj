@@ -42,7 +42,11 @@
     <SuiteName>Bolt2Optima -Konwerter z Systemu Bolt dla Optimy dla Ksiegowości</SuiteName>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>b2ok</WebPage>
+<<<<<<< HEAD
     <ApplicationRevision>16</ApplicationRevision>
+=======
+    <ApplicationRevision>13</ApplicationRevision>
+>>>>>>> 72b83ea784b3aa99c0898df571ca5a39bd64dcfc
     <ApplicationVersion>2020.1107.154.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
