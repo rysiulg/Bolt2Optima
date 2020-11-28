@@ -1,6 +1,7 @@
 Bolt2Optima (c) MARM.pl Sp. z o.o.
 Bolt 2 Optima konwerter (c) 2020 by MARM.pl
 
+v.2020.1128 -dopisano info o strukturze pliku do konwersji w głównym oknie i oknie readme.
 v.2020.1107 -Uzupełniono o zapisywanie konfiguracji dla wczytanego podmiotu na danym komputerze
 			-Dodane Usuwanie oryginalnego pliku po konwersji, pozostawia w oryginalnej lokalizacji plik skonwertowany i spakowana wersję pliku źródłowego i docelowego
 v.2020.1106	-Domyślnie wyczyszczone pola domyślnego kodu pocztowego i Miasta dla konwersji

@@ -356,6 +356,11 @@ Public Class Bolt2Optima
         Me.pUslugi_rodz_sprzed.Text = Me.pUslugi_rodz_sprzed_def
         Me.cb_usun_minus_nip.Checked = Me.cb_usun_minus_nip_def
         Me.count.Text = CStr(0) 'licznik uruchomien dla nip
+        Me.statusbox.AppendText(vbCrLf + "Program przystosowany do konwersji miesięcznych zestawień kierowcy z Systemu BOLT do programu księgowego OPTIMA w związku z wymogiem wykazania Imienia i Nazwiska przewożonego pasażera.")
+        Me.statusbox.AppendText(vbCrLf + "Obsługuje pliki csv oddzielany przecinkiem z polami tekstowymi oznaczonymi w cudzysłowiu i z nagłówkiem kolumn:")
+        Me.statusbox.AppendText(vbCrLf + "Numer faktury , Data , Adres odbioru , Metoda płatności , Data przejazdu , Odbiorca , Adres odbiorcy , Numer REGON , NIP odbiorcy , Nazwa Firmy (Kierowca) , Adres firmy (Ulica, Numer, Kod pocztowy, Kraj) , REGON  Firmy , NIP Firmy , Cena (bez VAT) , VAT	Suma" + vbCrLf)
+        Me.statusbox.AppendText("W przypadku innych plików -istnieje możliwość modyfikacji programu celem dopasowania do innych danych -niezbędny plik źródłowy do analizy wysłany z info na adres e-mail: programy@marm.pl" + vbCrLf)
+
     End Sub
 
     Private Sub Bolt2Optima_DragDrop(sender As Object, e As DragEventArgs) Handles Me.DragDrop
@@ -449,4 +454,6 @@ Public Class Bolt2Optima
     Private Sub IDOptksieg_DoubleClick(sender As Object, e As EventArgs) Handles IDOptksieg.DoubleClick
         frm_helper.Show()
     End Sub
+
+
 End Class

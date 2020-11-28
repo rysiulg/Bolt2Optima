@@ -2,6 +2,10 @@ Bolt2Optima (c) MARM.pl Sp. z o.o.
 
 Konwerter danych z systemu Bolt (plik .csv) do Optima (.xml) dla Księgowości.
 
+Program przystosowany do konwersji miesięcznych zestawień kierowcy z Systemu BOLT do programu księgowego OPTIMA w związku z wymogiem wykazania Imienia i Nazwiska przewożonego pasażera.
+Obsługuje pliki csv oddzielany przecinkiem z polami tekstowymi oznaczonymi w cudzysłowiu i z nagłówkiem kolumn:
+Numer faktury , Data , Adres odbioru , Metoda płatności , Data przejazdu , Odbiorca , Adres odbiorcy , Numer REGON , NIP odbiorcy , Nazwa Firmy (Kierowca) , Adres firmy (Ulica, Numer, Kod pocztowy, Kraj) , REGON  Firmy , NIP Firmy , Cena (bez VAT) , VAT	Suma
+W przypadku innych plików -istnieje możliwość modyfikacji programu celem dopasowania do innych danych -niezbędny plik źródłowy do analizy wysłany z info na adres e-mail: programy@marm.pl
 
 Wybrac identyfikatory ksiegowosci i nadawcy -te dane musza byc zgodne.
 -Aby dowiedzieć się jak i gdzie skonfigurować OPTIME do importu -kliknij dwukrotnie myszką na polu IDKSI podświetlone czerwonymi literami Jako identyfikator księgowości
