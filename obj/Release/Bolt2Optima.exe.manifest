@@ -1,10 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <asmv1:assembly xsi:schemaLocation="urn:schemas-microsoft-com:asm.v1 assembly.adaptive.xsd" manifestVersion="1.0" xmlns:asmv1="urn:schemas-microsoft-com:asm.v1" xmlns="urn:schemas-microsoft-com:asm.v2" xmlns:asmv2="urn:schemas-microsoft-com:asm.v2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:co.v1="urn:schemas-microsoft-com:clickonce.v1" xmlns:asmv3="urn:schemas-microsoft-com:asm.v3" xmlns:dsig="http://www.w3.org/2000/09/xmldsig#" xmlns:co.v2="urn:schemas-microsoft-com:clickonce.v2">
-  <asmv1:assemblyIdentity name="Bolt2Optima.exe" version="2020.1128.172.9" publicKeyToken="0000000000000000" language="neutral" processorArchitecture="msil" type="win32" />
+  <asmv1:assemblyIdentity name="Bolt2Optima.exe" version="2020.1128.191.9" publicKeyToken="0000000000000000" language="neutral" processorArchitecture="msil" type="win32" />
   <description asmv2:iconFile="Resources\favicon.ico" xmlns="urn:schemas-microsoft-com:asm.v1" />
   <application />
   <entryPoint>
-    <assemblyIdentity name="Bolt2Optima" version="2020.1128.173.9" language="neutral" processorArchitecture="msil" />
+    <assemblyIdentity name="Bolt2Optima" version="2020.1128.192.9" language="neutral" processorArchitecture="msil" />
     <commandLine file="Bolt2Optima.exe" parameters="" />
   </entryPoint>
   <trustInfo>
@@ -43,26 +43,26 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Bolt2Optima.exe" size="619600">
-      <assemblyIdentity name="Bolt2Optima" version="2020.1128.173.9" language="neutral" processorArchitecture="msil" />
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Bolt2Optima.exe" size="433232">
+      <assemblyIdentity name="Bolt2Optima" version="2020.1128.192.9" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-        <dsig:DigestValue>+KZ1UgKGepU4OjjCFy1HQzN7SkI=</dsig:DigestValue>
+        <dsig:DigestValue>6NBpyJGk1ELqddz9gZi75zfKliY=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
   <dependency>
     <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="pl\Bolt2Optima.resources.dll" size="55808">
-      <assemblyIdentity name="Bolt2Optima.resources" version="2020.1128.173.9" language="pl" processorArchitecture="msil" />
+      <assemblyIdentity name="Bolt2Optima.resources" version="2020.1128.192.9" language="pl" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-        <dsig:DigestValue>Y7HK8L9olkvX75F+Qnw/v09RBy8=</dsig:DigestValue>
+        <dsig:DigestValue>/XRFYgWW+ScGu+QD9dgsUr9+164=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
