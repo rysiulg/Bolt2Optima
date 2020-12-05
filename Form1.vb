@@ -67,10 +67,33 @@ Public Class Bolt2Optima
                             _fName = Replace(Replace(Replace(Replace(Replace(fields(ii), Chr(34), ""), " ", "_"), "(", ""), ")", ""), ",", "")
                         End If
                     End If
+                    Select Case _fName
+                        Case "Numer_faktury" : _fName = "Numer_faktury"
+                        Case "Data" : _fName = "Data"
+                        Case "Adres_odbioru" : _fName = "Adres_odbioru"
+                        Case "Metoda_płatności" : _fName = "Metoda_płatności"
+                        Case "Data_przejazdu" : _fName = "Data_przejazdu"
+                        Case "Odbiorca" : _fName = "Odbiorca"
+                        Case "Adres_odbiorcy" : _fName = "Adres_odbiorcy"
+                        Case "Numer_REGON" : _fName = "Numer_REGON"
+                        Case "NIP_odbiorcy" : _fName = "NIP_odbiorcy"
+                        Case "Nazwa_Firmy_Kierowca" : _fName = "Nazwa_Firmy_Kierowca"
+                        Case "Adres_firmy_Ulica_Numer_Kod_pocztowy_Kraj" : _fName = "Adres_firmy_Ulica_Numer_Kod_pocztowy_Kraj"
+                        Case "REGON_Firmy" : _fName = "REGON_Firmy"
+                        Case "NIP_Firmy" : _fName = "NIP_Firmy"
+                        Case "Cena_bez_VAT" : _fName = "Cena_bez_VAT"
+                        Case "VAT" : _fName = "VAT"
+                        Case "Suma" : _fName = "Suma"
+                    End Select
+
                     dt.Columns.Add(_fName)
                 Next
                 firstRow = False
             End If
+            'Podmień przecinek na kropkę w polach wartości dla pewności bo w xslt separatorem dziesietnym jest kropka
+            fields(13).Replace(",", ".").Replace(" ", "")
+            fields(14).Replace(",", ".").Replace(" ", "")
+            fields(15).Replace(",", ".").Replace(" ", "")
             sumanet += Val(fields(13))
             sumavat += Val(fields(14))
             sumabrut += Val(fields(15))
