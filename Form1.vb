@@ -15,8 +15,7 @@ Public Class Bolt2Optima
     'Dim ds As New DataSet
     Public Debugflag As Boolean = vbFalse
     Public result As DialogResult
-    Public Namespacefile As String = "Bolt2Optima."
-    Public fname As String() = {Namespacefile + "README.md", Namespacefile + "CHANGELOG"}
+    Public fname As String() = {"README.md", "CHANGELOG"}
     Public idksieg As String = "IDKSI"
     Public idnadaw As String = "IDSEN"
     Public pUslugi_rodz_sprzed_def As String = "usługi"
@@ -358,7 +357,7 @@ Public Class Bolt2Optima
 
         filepath = ofd.FileName
         statusbox.Clear()
-        CsvToXml(filepath, "Bolt", ",", filepath + ".xml", Namespacefile + "XSLTFile1.xslt")
+        CsvToXml(filepath, "Bolt", ",", filepath + ".xml", Me.GetType().Namespace + "." + "XSLTFile1.xslt")
         exitok()
     End Sub
 
@@ -418,7 +417,7 @@ Public Class Bolt2Optima
                 If (Debugflag = vbTrue) Then result = MsgBox(path)
                 statusbox.Clear()
                 filepath = path
-                CsvToXml(path, "BOLT", ",", path + ".xml", Namespacefile + "XSLTFile1.xslt")
+                CsvToXml(path, "BOLT", ",", path + ".xml", Me.GetType().Namespace + "." + "XSLTFile1.xslt")
             Next
         Catch ex As Exception
             MessageBox.Show(ex.Message, "ERROR: 0x0023")

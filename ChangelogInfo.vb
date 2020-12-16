@@ -19,8 +19,8 @@ Public Class ChangelogInfo
             ComboBox1.Items.Clear()
             ComboBox1.Text = ""
             For i As Integer = 0 To Bolt2Optima.fname.Length - 1
-                ComboBox1.Items.Add(Bolt2Optima.fname(i).Replace(Bolt2Optima.Namespacefile, ""))
-                If ComboBox1.Text = "" Then ComboBox1.Text = Bolt2Optima.fname(i).Replace(Bolt2Optima.Namespacefile, "")
+                ComboBox1.Items.Add(Bolt2Optima.fname(i))
+                If ComboBox1.Text = "" Then ComboBox1.Text = Bolt2Optima.fname(i)
             Next i
         Catch
             Bolt2Optima.result = MsgBox("Error filenames chl/read")
@@ -39,7 +39,7 @@ Public Class ChangelogInfo
             MessageBox.Show(ex.Message, "Error Getting Text f contents...")
         End Try
         Try
-            Dim reader As StreamReader = New StreamReader(Assembly.GetExecutingAssembly().GetManifestResourceStream(Bolt2Optima.Namespacefile + ComboBox1.SelectedItem().ToString))
+            Dim reader As StreamReader = New StreamReader(Assembly.GetExecutingAssembly().GetManifestResourceStream(Me.GetType().Namespace + "." + ComboBox1.SelectedItem().ToString))
             InfoBox_details.Text = reader.ReadToEnd()
         Catch ex As Exception
             MessageBox.Show(ex.Message, "Error Getting Text f contents...")
@@ -47,7 +47,4 @@ Public Class ChangelogInfo
         InfoBox_details.Update()
     End Sub
 
-    Private Sub InfoBox_details_TextChanged(sender As Object, e As EventArgs) Handles InfoBox_details.TextChanged
-
-    End Sub
 End Class
