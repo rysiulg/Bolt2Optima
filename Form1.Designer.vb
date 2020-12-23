@@ -244,7 +244,7 @@ Partial Class Bolt2Optima
         Me.kat_sprzedazy.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
         Me.kat_sprzedazy.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(238, Byte))
         Me.kat_sprzedazy.FormattingEnabled = True
-        Me.kat_sprzedazy.Items.AddRange(New Object() {"SPRZEDAŻ", "SPRZEDAŻ_BOLT"})
+        Me.kat_sprzedazy.Items.AddRange(New Object() {"", "SPRZEDAŻ", "SPRZEDAŻ_BOLT"})
         Me.kat_sprzedazy.Location = New System.Drawing.Point(102, 69)
         Me.kat_sprzedazy.MaxDropDownItems = 3
         Me.kat_sprzedazy.MaxLength = 20
@@ -252,6 +252,7 @@ Partial Class Bolt2Optima
         Me.kat_sprzedazy.Size = New System.Drawing.Size(135, 21)
         Me.kat_sprzedazy.Sorted = True
         Me.kat_sprzedazy.TabIndex = 3
+        Me.kat_sprzedazy.Text = "SPRZEDAŻ_BOLT"
         '
         'count
         '

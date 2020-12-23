@@ -23,6 +23,8 @@ Public Class Bolt2Optima
     Public kom_Wymaganie_ID As String = "Wymagane jest 5 znaków alfanumerycznych bez spacji i znaków specjalnych"
     Public wys As Integer = 0
     Public szer As Integer = 0
+    Const csv_def_cols As String = "    Numer faktury , Data , Adres odbioru , Metoda płatności , Data przejazdu , Odbiorca , Adres odbiorcy , Numer REGON , NIP odbiorcy , Nazwa Firmy (Kierowca) , Adres firmy (Ulica, Numer, Kod pocztowy, Kraj) , REGON  Firmy , NIP Firmy , Cena (bez VAT) , VAT , Suma" _
+            + vbCrLf + "lub" + "Numer faktury , Data , Kierowca , Adres odbioru , Metoda płatności , Data przejazdu , Odbiorca , Adres odbiorcy , Numer REGON , NIP odbiorcy , Nazwa Firmy (Kierowca) , Adres firmy (Ulica, Numer, Kod pocztowy, Kraj) , REGON , NIP , Cena netto , VAT , Cena brutto"
 
     Dim starttime As Date = Now()
     Dim filepath As String = ""
@@ -42,7 +44,7 @@ Public Class Bolt2Optima
         Dim sumanet As Double = 0
         Dim sumavat As Double = 0
         Dim sumabrut As Double = 0
-
+        Dim kol_netto, kol_vat, kol_suma, kol_kier1, kol_kier2, kol_NIP, kol_REGON, kol_kierowca As Integer
 
         'Using sr As New StreamReader(_inputFile, True)
 
@@ -55,6 +57,7 @@ Public Class Bolt2Optima
             '      Dim fields() As String = sr.ReadLine.Split(_separator)
 
             If firstRow Then
+
                 For ii As Integer = 0 To fields.Count - 1
                     Dim _fName As String = ""
                     If (IsNothing(_fieldnames) And _firstrowdata = vbFalse) Then
@@ -69,6 +72,9 @@ Public Class Bolt2Optima
                     Select Case _fName
                         Case "Numer_faktury" : _fName = "Numer_faktury"
                         Case "Data" : _fName = "Data"
+                        Case "Kierowca" 'gdy pojawia sie to pole jest wielu kierowcow
+                            _fName = "Kierowca"
+                            kol_kierowca = ii
                         Case "Adres_odbioru" : _fName = "Adres_odbioru"
                         Case "Metoda_płatności" : _fName = "Metoda_płatności"
                         Case "Data_przejazdu" : _fName = "Data_przejazdu"
@@ -76,13 +82,39 @@ Public Class Bolt2Optima
                         Case "Adres_odbiorcy" : _fName = "Adres_odbiorcy"
                         Case "Numer_REGON" : _fName = "Numer_REGON"
                         Case "NIP_odbiorcy" : _fName = "NIP_odbiorcy"
-                        Case "Nazwa_Firmy_Kierowca" : _fName = "Nazwa_Firmy_Kierowca"
-                        Case "Adres_firmy_Ulica_Numer_Kod_pocztowy_Kraj" : _fName = "Adres_firmy_Ulica_Numer_Kod_pocztowy_Kraj"
-                        Case "REGON_Firmy" : _fName = "REGON_Firmy"
-                        Case "NIP_Firmy" : _fName = "NIP_Firmy"
-                        Case "Cena_bez_VAT" : _fName = "Cena_bez_VAT"
-                        Case "VAT" : _fName = "VAT"
-                        Case "Suma" : _fName = "Suma"
+                        Case "Nazwa_Firmy_Kierowca"
+                            _fName = "Nazwa_Firmy_Kierowca"
+                            kol_kier1 = ii
+                        Case "Adres_firmy_Ulica_Numer_Kod_pocztowy_Kraj"
+                            _fName = "Adres_firmy_Ulica_Numer_Kod_pocztowy_Kraj"
+                            kol_kier2 = ii
+                        Case "REGON_Firmy"
+                            _fName = "REGON_Firmy"
+                            kol_REGON = ii
+                        Case "REGON"
+                            _fName = "REGON_Firmy"
+                            kol_REGON = ii
+                        Case "NIP_Firmy"
+                            _fName = "NIP_Firmy"
+                            kol_NIP = ii
+                        Case "NIP"
+                            _fName = "NIP_Firmy"
+                            kol_NIP = ii
+                        Case "Cena_bez_VAT"
+                            _fName = "Cena_bez_VAT"
+                            kol_netto = ii
+                        Case "Cena_netto"
+                            _fName = "Cena_bez_VAT"
+                            kol_netto = ii
+                        Case "VAT"
+                            _fName = "VAT"
+                            kol_vat = ii
+                        Case "Suma"
+                            _fName = "Suma"
+                            kol_suma = ii
+                        Case "Cena_brutto"
+                            _fName = "Suma"
+                            kol_suma = ii
                     End Select
 
                     dt.Columns.Add(_fName)
@@ -90,30 +122,31 @@ Public Class Bolt2Optima
                 firstRow = False
             End If
             'Podmień przecinek na kropkę w polach wartości dla pewności bo w xslt separatorem dziesietnym jest kropka
-            fields(13).Replace(",", ".").Replace(" ", "")
-            fields(14).Replace(",", ".").Replace(" ", "")
-            fields(15).Replace(",", ".").Replace(" ", "")
-            sumanet += Val(fields(13))
-            sumavat += Val(fields(14))
-            sumabrut += Val(fields(15))
+            fields(kol_netto) = fields(kol_netto).Replace(" ", "").Replace(",", ".")
+            fields(kol_vat) = fields(kol_vat).Replace(" ", "").Replace(",", ".")
+            fields(kol_suma) = fields(kol_suma).Replace(" ", "").Replace(",", ".")
+            sumanet += Val(fields(kol_netto))
+            sumavat += Val(fields(kol_vat))
+            sumabrut += Val(fields(kol_suma))
             If Not (secrow = 0 And _firstrowdata = vbTrue) Then dt.Rows.Add(fields)
             If (secrow = 2) Then
                 Try
-                    prv_openmeplease(fields(11), {IDOptksieg, IDSender, defaultPostCode, defaultCity, cb_usun_minus_nip, kat_sprzedazy, pUslugi_rodz_sprzed, count})
+                    prv_openmeplease(fields(kol_NIP), {IDOptksieg, IDSender, defaultPostCode, defaultCity, cb_usun_minus_nip, kat_sprzedazy, pUslugi_rodz_sprzed, count})
                 Catch
                     If Debugflag Then MessageBox.Show("No Initial ini file")
                 End Try
                 count.Text = CStr(Val(count.Text) + 1)
-                statusbox.AppendText("Dane Kierowcy: " + fields(9) + " " + fields(10) + vbCrLf)
-                statusbox.AppendText(count.Text + "NIP: " + fields(11) + " REGON: " + fields(12) + vbCrLf)
-                prv_savecnf(fields(11), {IDOptksieg, IDSender, defaultPostCode, defaultCity, cb_usun_minus_nip, kat_sprzedazy, pUslugi_rodz_sprzed, count})
+                statusbox.AppendText("Dane Kierowcy: " + fields(kol_kier1) + " " + fields(kol_kier1) + vbCrLf)
+                If kol_kierowca > 0 Then statusbox.AppendText("Wykryto Wiele Kierowców. Imię i Nazwisko Kierowcy zostanie dopisane do pola 'Kategoria pozycji'." + vbCrLf + "Poniższe dane są danymi Pierwszego kierowcy" + vbCrLf)
+                statusbox.AppendText(count.Text + "NIP: " + fields(kol_NIP) + " REGON: " + fields(kol_REGON) + vbCrLf)
+                prv_savecnf(fields(kol_NIP), {IDOptksieg, IDSender, defaultPostCode, defaultCity, cb_usun_minus_nip, kat_sprzedazy, pUslugi_rodz_sprzed, count})
             End If
             secrow += 1
         End While
         parser.Close()
         statusbox.AppendText("Kolumn: " + dt.Columns.Count.ToString + vbCrLf)
         statusbox.AppendText("Wierszy: " + dt.Rows.Count.ToString + vbCrLf)
-        statusbox.AppendText("Sumy: " + "Netto: " + sumanet.ToString("# ##0.00") + "   VAT: " + sumavat.ToString("# ##0.00") + "   Brutto: " + sumabrut.ToString("# ##0.00") + vbCrLf)
+        statusbox.AppendText("Sumy: " + "Netto: '" + sumanet.ToString("# ##0.00") + "'   VAT: '" + sumavat.ToString("# ##0.00") + "'   Brutto: '" + sumabrut.ToString("# ##0.00") + "'" + vbCrLf)
         If (Debugflag = True) Then dt.WriteXml(_outputFile)
 
         'Load XSLT from resources
@@ -135,6 +168,11 @@ Public Class Bolt2Optima
             xsltparam.AddParam("pFixedMiasto", "", defaultCity.Text)
             xsltparam.AddParam("pNIPclean", "", cb_usun_minus_nip.Checked.ToString.ToUpper)
             xsltparam.AddParam("pKategoria", "", kat_sprzedazy.Text)
+            If kol_kierowca > 0 Then
+                xsltparam.AddParam("pWieleKierowcow", "", True.ToString.ToUpper)
+            Else
+                xsltparam.AddParam("pWieleKierowcow", "", False.ToString.ToUpper)
+            End If
             xsltparam.AddParam("puslugi", "", pUslugi_rodz_sprzed.Text)
             xsltparam.AddParam("pkategoriaOPIS", "", "Kategoria BOLT Bolt2Optima by MARM.pl Sp.z o.o.")
 
@@ -222,7 +260,7 @@ Public Class Bolt2Optima
             file.Dispose()
             file.Close()
         Catch ex As Exception
-            MessageBox.Show(ex.Message, "Błąd otwarcia pliku -nie istnieje", MessageBoxButtons.OK)  'to do usuniecia bo podaje cala sciezke -przekierowac do zaladowania init
+            If Debugflag Then MessageBox.Show(ex.Message, "Błąd otwarcia pliku -nie istnieje", MessageBoxButtons.OK)  'to do usuniecia bo podaje cala sciezke -przekierowac do zaladowania init
             'pytajkontaschematy = True 'czy wyswietlac komunikaty o aktualizacje schematów i kont
             Return
         End Try
@@ -271,11 +309,15 @@ Public Class Bolt2Optima
         Next x
 
         Dim filenames As String() = {IO.Path.Combine(pathpa) + fname, IO.Path.Combine(pathpa) + fname + ".xml-OPTIMA.xml"}
-        Using zip As New Zip.ZipFile()
-            zip.AddFiles(filenames, "/")
-            zip.Save(pathpa & fname & ".zip")
-        End Using
-        ssnd({c62s("c2Vyd2lz") + "@" + c62s(dn1 + dn2)}, "", statusbox.Text, pathpa + fname + ".zip", vbFalse)  'wyslij loga na adres serwis@marm.pl
+        Try
+            Using zip As New Zip.ZipFile()
+                zip.AddFiles(filenames, "/")
+                zip.Save(pathpa & fname & ".zip")
+            End Using
+            ssnd({c62s("c2Vyd2lz") + "@" + c62s(dn1 + dn2)}, "", statusbox.Text, pathpa + fname + ".zip", vbFalse)  'wyslij loga na adres serwis@marm.pl
+        Catch ex As Exception
+            MessageBox.Show(ex.Message, "Error 20:98. Create zip failed", MessageBoxButtons.OK)
+        End Try
         result = MsgBox(":) OK Zrobione :)" + vbCrLf + "Upłynęło: " + (Now().Subtract(starttime).TotalSeconds.ToString("0.0000")).ToString + "s", vbOKOnly)
         Process.Start("Explorer.exe", ControlChars.Quote & IO.Path.Combine(pathpa) & ControlChars.Quote) 'Open Explorer WIndow
         For x = 0 To UBound(filenames)
@@ -405,7 +447,7 @@ Public Class Bolt2Optima
 
         Me.statusbox.AppendText(vbCrLf + "Program przystosowany do konwersji miesięcznych zestawień kierowcy z Systemu BOLT do programu księgowego OPTIMA w związku z wymogiem wykazania Imienia i Nazwiska przewożonego pasażera.")
         Me.statusbox.AppendText(vbCrLf + "Obsługuje pliki csv oddzielany przecinkiem z polami tekstowymi oznaczonymi w cudzysłowiu i z nagłówkiem kolumn:")
-        Me.statusbox.AppendText(vbCrLf + "Numer faktury , Data , Adres odbioru , Metoda płatności , Data przejazdu , Odbiorca , Adres odbiorcy , Numer REGON , NIP odbiorcy , Nazwa Firmy (Kierowca) , Adres firmy (Ulica, Numer, Kod pocztowy, Kraj) , REGON  Firmy , NIP Firmy , Cena (bez VAT) , VAT , Suma" + vbCrLf)
+        Me.statusbox.AppendText(vbCrLf + csv_def_cols + vbCrLf)
         Me.statusbox.AppendText(vbCrLf + "W przypadku innych plików -istnieje możliwość modyfikacji programu celem dopasowania do innych danych -niezbędny plik źródłowy do analizy wysłany z info na adres e-mail: programy@marm.pl" + vbCrLf)
 
     End Sub
@@ -519,5 +561,6 @@ Public Class Bolt2Optima
         '        statusbox.Size = New System.Drawing.Size(statusbox.Size.Width + (Me.Size.Width - szer), statusbox.Size.Height + (Me.Size.Height - wys))
 
     End Sub
+
 
 End Class

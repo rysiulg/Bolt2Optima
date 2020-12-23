@@ -11,14 +11,16 @@
     <xsl:param name="pNIPclean"/>
     <xsl:param name="pKategoria"/>
     <xsl:param name="puslugi"/>
+    <xsl:param name="pWieleKierowcow"/>
+  
     <xsl:param name="pkategoriaOPIS"></xsl:param>
 
     <xsl:variable name="OptimaNazwalimit">50</xsl:variable>
     <xsl:variable name="numb" select="'0123456789'"/>
     <xsl:variable name="nipn" select="'0123456789-'"/>
-    <xsl:variable name="ucase" select="'ABCDEFGHIJKLMNOPQRSTUVWXYZACELNOSZZACELNOSZZ_ILGSCJDBBGNOWMKAYOPEIKAEKTUG'"/>
-    <xsl:variable name="lcase" select="'abcdefghijklmnopqrstuvwxyząćęłńóśżźĄĆĘŁŃÓŚŻŹ илГшчйДбБгновМкауOреікАектуг'"/>
-<!--  Микола_Глушко Даша_ГречишніковаАйбек_Бектурганов -->
+    <xsl:variable name="ucase" select="'ABCDEFGHIJKLMNOPQRSTUVWXYZACELNOSZZACELNOSZZ_ILGSCJDBBGNOWMKAYOPEIKAEKTUGSASAKOZAEWALILIJZEMLJNANASTACIJOWALCZUK_'"/>
+    <xsl:variable name="lcase" select="'abcdefghijklmnopqrstuvwxyząćęłńóśżźĄĆĘŁŃÓŚŻŹ илГшчйДбБгновМкауOреікАектугСашаКозаеваЛилияЗемлянанастасияовальчук.'"/> 
+  <!--  Микола_Глушко Даша_ГречишніковаАйбек_Бектурганов -->
 
     <xsl:template match="DocumentElement">
         <xsl:text disable-output-escaping="yes">&lt;ROOT xmlns=&quot;http://www.comarch.pl/cdn/optima/offline&quot;&gt;</xsl:text> 
@@ -27,27 +29,29 @@
             <xsl:element name="BAZA_ZRD_ID"><xsl:value-of select="$pOptZrd"/></xsl:element>
             <xsl:element name="BAZA_DOC_ID"><xsl:value-of select="$pOptDoc"/></xsl:element>
         </xsl:element>
-            <xsl:element name="KATEGORIE">
-                <xsl:element name="WERSJA"><xsl:text>2.00</xsl:text></xsl:element>
-                <xsl:element name="BAZA_ZRD_ID"><xsl:value-of select="$pOptZrd"/></xsl:element>
-                <xsl:element name="BAZA_DOC_ID"><xsl:value-of select="$pOptDoc"/></xsl:element>
-                <xsl:element name="KATEGORIA">
-                    <xsl:element name="KOD_OGOLNY">
-                        <xsl:value-of select="translate($pKategoria,$lcase,$ucase)"/>
-                    </xsl:element>
-                    <xsl:element name="KOD">
-                        <xsl:value-of select="translate($pKategoria,$lcase,$ucase)"/>
-                    </xsl:element>
-                    <xsl:element name="TYP">
-                        <xsl:value-of select="'przychód'"/>
-                    </xsl:element>
-                    <xsl:element name="OPIS">
-                        <xsl:value-of select="$pkategoriaOPIS"/>
-                    </xsl:element>
-                    <xsl:element name="NIEAKTYWNA">Nie</xsl:element>
+        <xsl:if test="$pKategoria!=''">
+              <xsl:element name="KATEGORIE">
+                  <xsl:element name="WERSJA"><xsl:text>2.00</xsl:text></xsl:element>
+                  <xsl:element name="BAZA_ZRD_ID"><xsl:value-of select="$pOptZrd"/></xsl:element>
+                  <xsl:element name="BAZA_DOC_ID"><xsl:value-of select="$pOptDoc"/></xsl:element>
+                  <xsl:element name="KATEGORIA">
+                      <xsl:element name="KOD_OGOLNY">
+                          <xsl:value-of select="translate($pKategoria,$lcase,$ucase)"/>
+                      </xsl:element>
+                      <xsl:element name="KOD">
+                          <xsl:value-of select="translate($pKategoria,$lcase,$ucase)"/>
+                      </xsl:element>
+                      <xsl:element name="TYP">
+                          <xsl:value-of select="'przychód'"/>
+                      </xsl:element>
+                      <xsl:element name="OPIS">
+                          <xsl:value-of select="$pkategoriaOPIS"/>
+                      </xsl:element>
+                      <xsl:element name="NIEAKTYWNA">Nie</xsl:element>
                     
-                </xsl:element>
-            </xsl:element>
+                  </xsl:element>
+              </xsl:element>
+        </xsl:if>
         <xsl:element name="KONTRAHENCI">
         <xsl:call-template name="ParseDataKontah"/>
         </xsl:element>
@@ -152,10 +156,12 @@ dane podmiotu-->
                     <xsl:value-of select="normalize-space(ancestor-or-self::node()/Numer_REGON)"/>
                 </xsl:element>
 
+              <xsl:if test="$pKategoria!=''">
                 <xsl:element name="KATEGORIA">
-                    <!--STRING(20) Kod kategorii dokumentu. Po tym polu będzie rozpoznawana kategoria w bazie danych CDN OPT!MA.-->
-                    <xsl:value-of select="substring(translate($pKategoria,$lcase,$ucase),1,20)"/>
+                  <!--STRING(20) Kod kategorii dokumentu. Po tym polu będzie rozpoznawana kategoria w bazie danych CDN OPT!MA.-->
+                  <xsl:value-of select="substring(translate($pKategoria,$lcase,$ucase),1,20)"/>
                 </xsl:element>
+              </xsl:if>
 
                 <xsl:element name="OPIS">
                     <!--STRING(50) Opis dokumentu.-->
@@ -178,19 +184,53 @@ dane podmiotu-->
                 <xsl:element name="NOTOWANIE_WALUTY_ILE">1</xsl:element>
                 <xsl:element name="NOTOWANIE_WALUTY_ZA_ILE">1</xsl:element>
                 <xsl:element name="WARTOSC_SPRZEDAZY">
-                    <xsl:value-of select="$brutto"/>
+                    <xsl:value-of select="format-number($brutto, '#0.00')"/>
                 </xsl:element>
 
                 <xsl:element name="POZYCJE">
                     <xsl:element name="POZYCJA">
                         <xsl:element name="LP">1</xsl:element>
                         <xsl:element name="STAWKA_VAT">
-                            <xsl:value-of
-                                select="format-number((($brutto div $netto) - 1) * 100, '#0.0')"/>
+                          <xsl:variable name="stvat1" select="(($brutto div $netto) - 1) * 100"/>  <!-- //format-number(((($brutto div $netto) - 1) * 100) , '#0.0')"/> -->
+                          <xsl:choose>
+                            <xsl:when test="$stvat1 &lt; 5" >
+                              <xsl:value-of select="'0.0'"/>
+                            </xsl:when>
+                            <xsl:when test="$stvat1 > 4.9 and $stvat1 &lt; 7.4">
+                              <xsl:value-of select="'5'"/>
+                            </xsl:when>
+                            <xsl:when test="$stvat1 > 7.4 and $stvat1 &lt; 7.9">
+                              <xsl:value-of select="'7.5'"/>
+                            </xsl:when>
+                            <xsl:when test="$stvat1 > 7.9 and $stvat1 &lt; 21.9">
+                              <xsl:value-of select="'8.0'"/>
+                            </xsl:when>
+                            <xsl:when test="$stvat1 > 21.9 and $stvat1 &lt; 22.9">
+                              <xsl:value-of select="'22.0'"/>
+                            </xsl:when>
+                            <xsl:when test="$stvat1 > 22.9 and $stvat1 &lt; 50">
+                              <xsl:value-of select="'23.0'"/>
+                            </xsl:when>
+                            <xsl:otherwise >
+                              <xsl:value-of select="'0.0'"/>
+                            </xsl:otherwise>
+                          </xsl:choose>
+                          
+                          
+                          <!--<xsl:value-of                                select="format-number(((($brutto div $netto) - 1) * 100) , '#0.0')"/> -->
                         </xsl:element>
-                        <xsl:if test="translate($pKategoria,$lcase,$ucase)!=''">
+                        <xsl:if test="translate($pKategoria,$lcase,$ucase)!='' or $pWieleKierowcow = 'TRUE'">
                             <xsl:element name="KATEGORIA_POS">
+                              <xsl:if test="translate($pKategoria,$lcase,$ucase)!=''">
                                 <xsl:value-of select="translate($pKategoria,$lcase,$ucase)"/>
+                              </xsl:if>
+                              <xsl:if test="translate($pKategoria,$lcase,$ucase)!='' and $pWieleKierowcow = 'TRUE'">
+                                <xsl:value-of select="'_'"/>
+                              </xsl:if>
+                                <xsl:if test="$pWieleKierowcow = 'TRUE'">
+                                  <xsl:value-of select="translate(normalize-space(ancestor-or-self::node()/Kierowca),$lcase,$ucase)"/>
+                                  <xsl:value-of select="concat('_',translate(normalize-space(ancestor-or-self::node()/NIP_Firmy), $nipn, $numb))"/>
+                                </xsl:if>
                             </xsl:element>
                         </xsl:if>
                         <xsl:element name="STATUS_VAT">
@@ -202,16 +242,16 @@ dane podmiotu-->
                             </xsl:if>
                         </xsl:element>
                         <xsl:element name="NETTO">
-                            <xsl:value-of select="$netto"/>
+                            <xsl:value-of select="format-number($netto, '#0.00')"/>
                         </xsl:element>
                         <xsl:element name="VAT">
-                            <xsl:value-of select="$vat"/>
+                            <xsl:value-of select="format-number($vat, '#0.00')"/>
                         </xsl:element>
                         <xsl:element name="NETTO_SYS">
-                            <xsl:value-of select="$netto"/>
+                            <xsl:value-of select="format-number($netto, '#0.00')"/>
                         </xsl:element>
                         <xsl:element name="VAT_SYS">
-                            <xsl:value-of select="$vat"/>
+                            <xsl:value-of select="format-number($vat, '#0.00')"/>
                         </xsl:element>
                         <xsl:element name="RODZAJ_SPRZEDAZY"><xsl:value-of select="$puslugi"/></xsl:element>
                     </xsl:element>
@@ -233,7 +273,7 @@ dane podmiotu-->
                             <xsl:value-of select="$brutto"/>
                         </xsl:element>
                         <xsl:element name="KWOTA_PLAT">
-                            <xsl:value-of select="$brutto"/>
+                            <xsl:value-of select="format-number($brutto, '#0.00')"/>
                         </xsl:element>
                         <xsl:element name="KIERUNEK">
                             <xsl:if test="$netto &gt; 0">
