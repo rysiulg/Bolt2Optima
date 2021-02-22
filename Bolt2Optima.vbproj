@@ -43,7 +43,7 @@
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>b2ok</WebPage>
     <ApplicationRevision>13</ApplicationRevision>
-    <ApplicationVersion>2021.0222.234.13</ApplicationVersion>
+    <ApplicationVersion>2021.0222.236.13</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
     <PublishWizardCompleted>true</PublishWizardCompleted>
