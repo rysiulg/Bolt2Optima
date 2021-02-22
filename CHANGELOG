@@ -1,6 +1,7 @@
 Bolt2Optima (c) MARM.pl Sp. z o.o.
 Bolt 2 Optima konwerter (c) 2020 by MARM.pl
 
+v.2021.0222 -korekta odczytu pliku csv -poprawiono weryfikację przypadkowego pojedynczego znaku " (poprawnie powinien być podwójny gdyż plik używa " jako znak separatora tekstu) w polu kolumny powodujące błędne identyfikowanie kolumn.
 v.2020.1223 -drobna korekcja zmian z v.2020.1205 oraz dodana obsługa wykrycia kilku kierowców -I faza i mapowanie pól nazw kolumn oraz rozszerzono rozpoznawanie nazw kolumn.
 			-po wykryciu kilku kierowcow dodawana jest kategoria pozycji dopisująca _<nazwaKierowcy>_<NIP_Kierowcy> do obecnej nazwy kategori wskazanej w polu "Kategoria Sprzedaży" głównego okna.
 v.2020.1216 -modyfikacja auto namespace in changelog i readme

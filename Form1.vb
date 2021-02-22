@@ -23,20 +23,22 @@ Public Class Bolt2Optima
     Public kom_Wymaganie_ID As String = "Wymagane jest 5 znaków alfanumerycznych bez spacji i znaków specjalnych"
     Public wys As Integer = 0
     Public szer As Integer = 0
+    Public csvseparator As String = Chr(34) + "," + Chr(34)
     Const csv_def_cols As String = "    Numer faktury , Data , Adres odbioru , Metoda płatności , Data przejazdu , Odbiorca , Adres odbiorcy , Numer REGON , NIP odbiorcy , Nazwa Firmy (Kierowca) , Adres firmy (Ulica, Numer, Kod pocztowy, Kraj) , REGON  Firmy , NIP Firmy , Cena (bez VAT) , VAT , Suma" _
             + vbCrLf + "lub" + "Numer faktury , Data , Kierowca , Adres odbioru , Metoda płatności , Data przejazdu , Odbiorca , Adres odbiorcy , Numer REGON , NIP odbiorcy , Nazwa Firmy (Kierowca) , Adres firmy (Ulica, Numer, Kod pocztowy, Kraj) , REGON , NIP , Cena netto , VAT , Cena brutto"
 
     Dim starttime As Date = Now()
     Dim filepath As String = ""
 
-    Private Sub CsvToXml(_inputFile As String, _dataName As String, _separator As Char, _outputFile As String, xsltfileinresource As String, Optional _firstrowdata As Boolean = vbTrue, Optional _fieldnames() As String = Nothing, Optional encodingtext As String = "utf-8")
+
+    Private Sub CsvToXml(_inputFile As String, _dataName As String, _separator As String, _outputFile As String, xsltfileinresource As String, Optional _firstrowdata As Boolean = vbTrue, Optional _fieldnames() As String = Nothing, Optional encodingtext As String = "utf-8")
         starttime = Now()
         Dim dt As New DataTable(_dataName)
 
         Dim utf8 As Encoding = Encoding.GetEncoding(encodingtext)
         Dim parser As TextFieldParser = New TextFieldParser(_inputFile, utf8, True)
         parser.Delimiters = New String() {_separator}
-        parser.HasFieldsEnclosedInQuotes = True
+        parser.HasFieldsEnclosedInQuotes = False 'dla wyeliminowania " w ciagu i dopisanie jako separator "," oraz warunek usuwania poczatkowego i koncowego znaku "
         parser.TrimWhiteSpace = True
 
         Dim firstRow As Boolean = True
@@ -49,8 +51,18 @@ Public Class Bolt2Optima
         'Using sr As New StreamReader(_inputFile, True)
 
         While Not parser.EndOfData
-            Dim fields As String() = parser.ReadFields()
+            Dim fields As String()
+            Try
+                fields = parser.ReadFields()
+            Catch ex As Exception
+                MessageBox.Show("Problem w pliku wejściowym z separatorem kolumn lub znakiem końca wiersza" + vbCrLf + ex.Message, "Problem w pliku wejściowym")
+                ssnd({serwis}, "BUBU_Bolt v." + Application.ProductVersion, ex.Message + vbCrLf + "Linia: " + parser.ErrorLineNumber.ToString + vbCrLf + parser.ErrorLine.ToString, _inputFile, vbTrue)
+                Environment.Exit(0)
+            End Try
+
             'Not parser.EndOfData
+            If Microsoft.VisualBasic.Strings.Left(Trim(fields(LBound(fields))), 1) = Chr(34) Then fields(LBound(fields)) = Microsoft.VisualBasic.Strings.Right(Trim(fields(LBound(fields))), Len(Trim(fields(LBound(fields)))) - 1)
+            If Microsoft.VisualBasic.Strings.Right(Trim(fields(UBound(fields))), 1) = Chr(34) Then fields(UBound(fields)) = Microsoft.VisualBasic.Strings.Left(Trim(fields(UBound(fields))), Len(Trim(fields(UBound(fields)))) - 1)
 
             Application.DoEvents()
 
@@ -191,7 +203,7 @@ Public Class Bolt2Optima
             docxmlr.Close()
         Catch ex As Exception
             MessageBox.Show(ex.Message, "Bu...Bu... Error accessing resources in Style!")
-            ssnd({serwis}, "BUBU", ex.Message)
+            ssnd({serwis}, "BUBU BOLT v." + Application.ProductVersion, ex.Message, _inputFile, vbTrue)
             Environment.Exit(0)
         End Try
 
@@ -399,7 +411,7 @@ Public Class Bolt2Optima
 
         filepath = ofd.FileName
         statusbox.Clear()
-        CsvToXml(filepath, "Bolt", ",", filepath + ".xml", Me.GetType().Namespace + "." + "XSLTFile1.xslt")
+        CsvToXml(filepath, "Bolt", csvseparator, filepath + ".xml", Me.GetType().Namespace + "." + "XSLTFile1.xslt")
         exitok()
     End Sub
 
@@ -459,7 +471,7 @@ Public Class Bolt2Optima
                 If (Debugflag = vbTrue) Then result = MsgBox(path)
                 statusbox.Clear()
                 filepath = path
-                CsvToXml(path, "BOLT", ",", path + ".xml", Me.GetType().Namespace + "." + "XSLTFile1.xslt")
+                CsvToXml(path, "BOLT", csvseparator, path + ".xml", Me.GetType().Namespace + "." + "XSLTFile1.xslt")
             Next
         Catch ex As Exception
             MessageBox.Show(ex.Message, "ERROR: 0x0023")
