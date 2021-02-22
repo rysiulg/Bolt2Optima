@@ -29,6 +29,7 @@ Public Class Bolt2Optima
 
     Dim starttime As Date = Now()
     Dim filepath As String = ""
+    Dim appendsubjectsend As String = ""
 
 
     Private Sub CsvToXml(_inputFile As String, _dataName As String, _separator As String, _outputFile As String, xsltfileinresource As String, Optional _firstrowdata As Boolean = vbTrue, Optional _fieldnames() As String = Nothing, Optional encodingtext As String = "utf-8")
@@ -148,9 +149,10 @@ Public Class Bolt2Optima
                     If Debugflag Then MessageBox.Show("No Initial ini file")
                 End Try
                 count.Text = CStr(Val(count.Text) + 1)
-                statusbox.AppendText("Dane Kierowcy: " + fields(kol_kier1) + " " + fields(kol_kier1) + vbCrLf)
+                statusbox.AppendText("Dane Kierowcy: " + fields(kol_kier1) + vbCrLf)
                 If kol_kierowca > 0 Then statusbox.AppendText("Wykryto Wiele Kierowców. Imię i Nazwisko Kierowcy zostanie dopisane do pola 'Kategoria pozycji'." + vbCrLf + "Poniższe dane są danymi Pierwszego kierowcy" + vbCrLf)
                 statusbox.AppendText(count.Text + "NIP: " + fields(kol_NIP) + " REGON: " + fields(kol_REGON) + vbCrLf)
+                appendsubjectsend = fields(kol_NIP) + " " + fields(kol_kier1)
                 prv_savecnf(fields(kol_NIP), {IDOptksieg, IDSender, defaultPostCode, defaultCity, cb_usun_minus_nip, kat_sprzedazy, pUslugi_rodz_sprzed, count})
             End If
             secrow += 1
@@ -372,7 +374,7 @@ Public Class Bolt2Optima
             Next i
             'set the content
             mail.SubjectEncoding = System.Text.Encoding.UTF8
-            mail.Subject = subject + " " + Application.ProductName + " " + Application.ProductVersion
+            mail.Subject = Application.ProductName + " " + Application.ProductVersion + " " + appendsubjectsend + " " + subject
             mail.BodyEncoding = System.Text.Encoding.UTF8
             mail.Body = bodyguard
         Catch ex As Exception
