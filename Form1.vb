@@ -25,8 +25,8 @@ Public Class Bolt2Optima
     Public szer As Integer = 0
     Public csvseparator As String = Chr(34) + "," + Chr(34)
     Const csv_def_cols As String = "    Numer faktury , Data , Adres odbioru , Metoda płatności , Data przejazdu , Odbiorca , Adres odbiorcy , Numer REGON , NIP odbiorcy , Nazwa Firmy (Kierowca) , Adres firmy (Ulica, Numer, Kod pocztowy, Kraj) , REGON  Firmy , NIP Firmy , Cena (bez VAT) , VAT , Suma" _
-            + vbCrLf + "lub" + "Numer faktury , Data , Kierowca , Adres odbioru , Metoda płatności , Data przejazdu , Odbiorca , Adres odbiorcy , Numer REGON , NIP odbiorcy , Nazwa Firmy (Kierowca) , Adres firmy (Ulica, Numer, Kod pocztowy, Kraj) , REGON , NIP , Cena netto , VAT , Cena brutto"
-
+            + vbCrLf + "lub" + "Numer faktury , Data , Kierowca , Adres odbioru , Metoda płatności , Data przejazdu , Odbiorca , Adres odbiorcy , Numer REGON , NIP odbiorcy , Nazwa Firmy (Kierowca) , Adres firmy (Ulica, Numer, Kod pocztowy, Kraj) , REGON , NIP , Cena netto , VAT , Cena brutto" _
+            + vbCrLf + "lub" + "invoice_number , issue_date , trip_date , driver_uuid , v_firstname , v_lastname , vendor , v_nip , vat_exempted , address , v_postal_code , v_country , firstname , lastname , c_role , biz_name , c_nip , address1 , address1 , address2 , postal_code , city , country , service , net_value , vat_rate , vat_value , gross_value , sale_confirmation_document"
     Dim starttime As Date = Now()
     Dim filepath As String = ""
     Dim appendsubjectsend As String = ""
@@ -84,21 +84,40 @@ Public Class Bolt2Optima
                     End If
                     Select Case _fName
                         Case "Numer_faktury" : _fName = "Numer_faktury"
+                        Case "invoice_number" : _fName = "Numer_faktury"
                         Case "Data" : _fName = "Data"
+                        Case "issue_date" : _fName = "Data"
                         Case "Kierowca" 'gdy pojawia sie to pole jest wielu kierowcow
                             _fName = "Kierowca"
                             kol_kierowca = ii
+                        Case "v_lastname" 'gdy pojawia sie to pole jest wielu kierowcow
+                            _fName = "Kierowca"
+                            kol_kierowca = ii
                         Case "Adres_odbioru" : _fName = "Adres_odbioru"
+
                         Case "Metoda_płatności" : _fName = "Metoda_płatności"
+
                         Case "Data_przejazdu" : _fName = "Data_przejazdu"
+                        Case "trip_date" : _fName = "Data_przejazdu"
                         Case "Odbiorca" : _fName = "Odbiorca"
+                        Case "lastname" : _fName = "Odbiorca"
+                        Case "firstname" : _fName = "Odbiorca1"
                         Case "Adres_odbiorcy" : _fName = "Adres_odbiorcy"
+
                         Case "Numer_REGON" : _fName = "Numer_REGON"
+
                         Case "NIP_odbiorcy" : _fName = "NIP_odbiorcy"
+
                         Case "Nazwa_Firmy_Kierowca"
                             _fName = "Nazwa_Firmy_Kierowca"
                             kol_kier1 = ii
+                        Case "vendor"
+                            _fName = "Nazwa_Firmy_Kierowca"
+                            kol_kier1 = ii
                         Case "Adres_firmy_Ulica_Numer_Kod_pocztowy_Kraj"
+                            _fName = "Adres_firmy_Ulica_Numer_Kod_pocztowy_Kraj"
+                            kol_kier2 = ii
+                        Case "address"
                             _fName = "Adres_firmy_Ulica_Numer_Kod_pocztowy_Kraj"
                             kol_kier2 = ii
                         Case "REGON_Firmy"
@@ -113,16 +132,28 @@ Public Class Bolt2Optima
                         Case "NIP"
                             _fName = "NIP_Firmy"
                             kol_NIP = ii
+                        Case "v_nip"
+                            _fName = "NIP_Firmy"
+                            kol_NIP = ii
                         Case "Cena_bez_VAT"
                             _fName = "Cena_bez_VAT"
                             kol_netto = ii
                         Case "Cena_netto"
                             _fName = "Cena_bez_VAT"
                             kol_netto = ii
+                        Case "net_value"
+                            _fName = "Cena_bez_VAT"
+                            kol_netto = ii
                         Case "VAT"
                             _fName = "VAT"
                             kol_vat = ii
+                        Case "vat_value"
+                            _fName = "VAT"
+                            kol_vat = ii
                         Case "Suma"
+                            _fName = "Suma"
+                            kol_suma = ii
+                        Case "gross_value"
                             _fName = "Suma"
                             kol_suma = ii
                         Case "Cena_brutto"
@@ -141,6 +172,7 @@ Public Class Bolt2Optima
             sumanet += Val(fields(kol_netto))
             sumavat += Val(fields(kol_vat))
             sumabrut += Val(fields(kol_suma))
+            If (InStr(fields(kol_NIP).ToLower(), "pol-vat") > 0) Then fields(kol_NIP) = Mid(fields(kol_NIP), fields(kol_NIP).Length() - 12).ToUpper().Replace("PL", "").Replace(Chr(3), "")
             If Not (secrow = 0 And _firstrowdata = vbTrue) Then dt.Rows.Add(fields)
             If (secrow = 2) Then
                 Try

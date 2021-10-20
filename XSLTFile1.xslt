@@ -306,7 +306,7 @@ dane podmiotu-->
             <xsl:variable name="nipodb"><xsl:value-of select="normalize-space(ancestor-or-self::node()/NIP_odbiorcy)"/></xsl:variable>
             <xsl:element name="KONTRAHENT">
                 <!--    <xsl:element name="ID_ZRODLA">A0D739EE-2807-CD5B-533C-C61A74CB22C0</xsl:element> -->
-                <xsl:element name="AKRONIM"><xsl:value-of select="substring(translate(normalize-space(ancestor-or-self::node()/Odbiorca),$lcase,$ucase),1,20)"/></xsl:element>
+                <xsl:element name="AKRONIM"><xsl:value-of select="substring(translate(normalize-space(concat(ancestor-or-self::node()/Odbiorca1,' ',ancestor-or-self::node()/Odbiorca)),$lcase,$ucase),1,20)"/></xsl:element>
                 <xsl:element name="RODZAJ">dostawca odbiorca</xsl:element>
                 <xsl:element name="FINALNY">
                     <xsl:if test="$nipodb != ''">Nie</xsl:if>
